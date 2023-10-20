@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+if npx prettier -c app/src --check; then
+    cd app/ && npm run lint && npm run commitlint ${1} && exit 0
+else
+    npx prettier -c app/src --write
+    echo "Your files are now pretty! Commit again 🚀🚀"
+    exit -1
+fi
