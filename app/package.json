@@ -34,7 +34,8 @@
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.13.0",
+    "@capacitor/preferences": "^5.0.6"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.0",
@@ -68,7 +69,8 @@
     "typescript": "~5.0.2",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.1",
-    "prettier": "3.0.3"
+    "prettier": "3.0.3",
+    "ts-pattern": "^5.0.5"
   },
   "description": "An Ionic project"
 }
