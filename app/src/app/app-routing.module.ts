@@ -24,6 +24,13 @@ const routes: Routes = [
         (m) => m.InternalErrorPagePageModule,
       ),
   },
+  {
+    path: 'programming-error',
+    loadChildren: () =>
+      import('./pages/programming-error/programming-error.module').then(
+        (m) => m.ProgrammingErrorPageModule,
+      ),
+  },
 ];
 
 @NgModule({
