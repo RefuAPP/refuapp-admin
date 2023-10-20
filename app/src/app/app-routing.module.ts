@@ -17,6 +17,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
+  {
+    path: 'internal-error-page',
+    loadChildren: () =>
+      import('./pages/internal-error-page/internal-error-page.module').then(
+        (m) => m.InternalErrorPagePageModule,
+      ),
+  },
 ];
 
 @NgModule({
