@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'refuges',
     pathMatch: 'full',
   },
   {
@@ -29,6 +29,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/programming-error/programming-error.module').then(
         (m) => m.ProgrammingErrorPageModule,
+      ),
+  },
+  {
+    path: 'refuges',
+    loadChildren: () =>
+      import('./pages/refuges/refuges/refuges.module').then(
+        (m) => m.RefugesPageModule,
       ),
   },
 ];
