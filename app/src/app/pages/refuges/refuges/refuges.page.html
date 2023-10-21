@@ -41,8 +41,20 @@
                 size="12"
               >
                 <div class="refuge-name">{{refuge.name}}</div>
-                <p>{{refuge.region}}</p>
-                <p>{{refuge.altitude}}</p>
+                <p>
+                  Regió: <br />
+                  <strong> {{refuge.region}} </strong>
+                </p>
+                <p>
+                  Altitud: <br />
+                  <strong> {{refuge.altitude}}m </strong>
+                </p>
+                <p>
+                  Capacitat:
+                  <br />
+                  <strong>- Hivern: {{refuge.capacity.winter}} </strong> <br />
+                  <strong>- Estiu: {{refuge.capacity.summer}} </strong>
+                </p>
               </ion-col>
             </ion-row>
           </ion-grid>
