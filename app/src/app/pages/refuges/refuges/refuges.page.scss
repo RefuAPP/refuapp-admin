@@ -18,3 +18,8 @@ ion-searchbar {
   --background: rgba(7, 7, 7, 0.2);
   color: white;
 }
+
+ion-card:hover {
+  cursor: pointer;
+  background: rgba(7, 7, 7, 0.485);
+}
