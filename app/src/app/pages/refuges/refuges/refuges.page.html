@@ -7,6 +7,17 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
+      <ion-col class="d-flex-center" size="12">
+        <ion-searchbar
+          show-clear-button="always"
+          placeholder="Buscar per nom"
+          [(ngModel)]="searchTerm"
+          (ionInput)="searchByName()"
+          [debounce]="250"
+        ></ion-searchbar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col
         *ngFor="let refuge of refuges"
         size-lg="6"

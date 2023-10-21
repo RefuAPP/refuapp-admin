@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 })
 export class RefugesPage implements OnInit {
   refuges: Refuge[] = [];
+  searchTerm: string = '';
+  allRefuges: Refuge[] = [];
 
   constructor(
     private router: Router,
@@ -36,7 +38,10 @@ export class RefugesPage implements OnInit {
 
   private handleGetAllRefugesResponse(response: GetAllRefugesResponse) {
     match(response)
-      .with({ status: 'correct' }, (response) => (this.refuges = response.data))
+      .with({ status: 'correct' }, (response) => {
+        this.allRefuges = response.data;
+        this.refuges = this.allRefuges;
+      })
       .with({ status: 'error' }, (response) => {
         this.handleError(response.error);
       })
@@ -89,5 +94,15 @@ export class RefugesPage implements OnInit {
 
   getImageUrlFor(refuge: Refuge): string {
     return this.refugeService.getImageUrlFor(refuge);
+  }
+
+  searchByName() {
+    if (this.searchTerm === '') {
+      this.refuges = this.allRefuges;
+      return;
+    }
+    this.refuges = this.allRefuges.filter((refuge: Refuge) =>
+      refuge.name.toLowerCase().includes(this.searchTerm.toLowerCase()),
+    );
   }
 }
