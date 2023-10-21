@@ -25,14 +25,16 @@ ion-toolbar ion-menu-button {
 
   inset: 0;
 
-  transition: opacity 500ms ease-in-out;
+  //transition: opacity 500ms ease-in-out;
 
   background-repeat: no-repeat;
+  //background-repeat: round;
 
   background-position: center;
-  background-size: cover;
+  //background-size: cover;
 
-  opacity: 0;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .about-info {
