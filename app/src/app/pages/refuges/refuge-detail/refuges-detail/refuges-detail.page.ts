@@ -16,6 +16,7 @@ import { match } from 'ts-pattern';
 })
 export class RefugesDetailPage implements OnInit {
   refuge?: Refuge;
+  fabExpanded: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -129,5 +130,21 @@ export class RefugesDetailPage implements OnInit {
         skipLocationChange: true,
       })
       .then();
+  }
+
+  toggleFab() {
+    this.fabExpanded = !this.fabExpanded;
+  }
+
+  createRefuge() {
+    console.log('create refuge');
+  }
+
+  editRefuge() {
+    console.log('edit refuge');
+  }
+
+  deleteRefuge() {
+    console.log('delete refuge');
   }
 }
