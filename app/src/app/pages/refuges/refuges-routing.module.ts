@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RefugesPage } from './refuges.page';
-import { adminGuard } from '../../../guards/admin.guard';
+import { RefugesListPage } from './refuge-list/refuges-list.page';
+import { adminGuard } from '../../guards/admin.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: RefugesPage,
+    component: RefugesListPage,
     canActivate: [adminGuard],
   },
 ];

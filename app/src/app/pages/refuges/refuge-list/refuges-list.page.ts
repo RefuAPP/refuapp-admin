@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-refuges',
-  templateUrl: './refuges.page.html',
-  styleUrls: ['./refuges.page.scss'],
+  templateUrl: './refuges-list.page.html',
+  styleUrls: ['./refuges-list.page.scss'],
 })
-export class RefugesPage implements OnInit {
+export class RefugesListPage implements OnInit {
   refuges: Refuge[] = [];
   searchTerm: string = '';
   allRefuges: Refuge[] = [];

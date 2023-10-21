@@ -29,9 +29,7 @@ const routes: Routes = [
   {
     path: 'refuges',
     loadChildren: () =>
-      import('./pages/refuges/refuges/refuges.module').then(
-        (m) => m.RefugesPageModule,
-      ),
+      import('./pages/refuges/refuges.module').then((m) => m.RefugesPageModule),
   },
 ];
 
