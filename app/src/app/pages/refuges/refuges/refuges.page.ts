@@ -86,4 +86,8 @@ export class RefugesPage implements OnInit {
       })
       .then();
   }
+
+  getImageUrlFor(refuge: Refuge): string {
+    return this.refugeService.getImageUrlFor(refuge);
+  }
 }
