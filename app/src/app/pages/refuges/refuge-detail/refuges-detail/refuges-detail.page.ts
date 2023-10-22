@@ -241,7 +241,7 @@ export class RefugesDetailPage implements OnInit {
 
   private handleForbidden() {
     this.finishLoadAnimAndExecute(() =>
-      this.router.navigate(['forbidden-page']).then(),
+      this.router.navigate(['forbidden']).then(),
     ).then();
   }
 

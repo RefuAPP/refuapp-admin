@@ -38,6 +38,13 @@ const routes: Routes = [
         (m) => m.NotFoundPageModule,
       ),
   },
+  {
+    path: 'forbidden',
+    loadChildren: () =>
+      import('./pages/forbidden/forbidden.module').then(
+        (m) => m.ForbiddenPageModule,
+      ),
+  },
 ];
 
 @NgModule({
