@@ -31,6 +31,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/refuges/refuges.module').then((m) => m.RefugesPageModule),
   },
+  {
+    path: 'not-found',
+    loadChildren: () =>
+      import('./pages/not-found/not-found.module').then(
+        (m) => m.NotFoundPageModule,
+      ),
+  },
 ];
 
 @NgModule({
