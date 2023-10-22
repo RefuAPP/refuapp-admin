@@ -109,7 +109,7 @@ export class RefugesDetailPage implements OnInit {
   private handleNotFoundRefuge() {
     this.finishLoadAnimAndExecute(() =>
       this.router
-        .navigate(['not-found-page'], {
+        .navigate(['not-found'], {
           skipLocationChange: true,
         })
         .then(),
