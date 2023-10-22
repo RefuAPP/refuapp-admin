@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   async authenticate(token: Token) {
-    await this.storageService.set('token', token);
+    await this.storageService.set('token', token.access_token);
   }
 
   async deAuthenticate(): Promise<void> {

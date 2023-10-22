@@ -12,6 +12,10 @@ import {
   GetRefugeFromIdErrors,
   GetRefugeResponse,
 } from '../../schemas/refuge/get-refuge-schema';
+import {
+  DeleteRefugeFromIdErrors,
+  DeleteRefugeResponse,
+} from '../../schemas/refuge/delete-refuge-schema';
 
 @Injectable({
   providedIn: 'root',
@@ -86,5 +90,40 @@ export class RefugeService {
 
   getImageUrlFor(refuge: Refuge): string {
     return `${environment.API}/static/images/refuges/${refuge.image}`;
+  }
+
+  deleteRefuge(id: string): Observable<DeleteRefugeResponse> {
+    if (!isValidId(id))
+      return of({
+        status: 'error',
+        error: DeleteRefugeFromIdErrors.CLIENT_SEND_DATA_ERROR,
+      });
+    return this.deleteRefugeFromApi(id);
+  }
+
+  private deleteRefugeFromApi(id: string): Observable<DeleteRefugeResponse> {
+    const endpoint = this.deleteRefugeFromIdEndpoint(id);
+    return this.http.delete<Refuge>(endpoint).pipe(
+      map<Refuge, DeleteRefugeResponse | Error>((refuge: Refuge) => {
+        if (isMatching(RefugePattern, refuge))
+          return { status: 'correct', data: refuge };
+        return {
+          status: 'error',
+          error: DeleteRefugeFromIdErrors.SERVER_INCORRECT_DATA_FORMAT_ERROR,
+        };
+      }),
+      catchError<DeleteRefugeResponse | Error, ObservableInput<any>>(
+        (err: HttpErrorResponse) =>
+          of({
+            status: 'error',
+            error: DeleteRefugeFromIdErrors.from(err),
+          }),
+      ),
+      retry(3),
+    );
+  }
+
+  private deleteRefugeFromIdEndpoint(id: string): string {
+    return `${environment.API}/refuges/${id}/`;
   }
 }

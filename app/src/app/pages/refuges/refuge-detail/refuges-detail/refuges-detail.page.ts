@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Refuge } from '../../../../schemas/refuge/refuge';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RefugeService } from '../../../../services/refuge/refuge.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import {
   GetRefugeFromIdErrors,
   GetRefugeResponse,
 } from '../../../../schemas/refuge/get-refuge-schema';
 import { match } from 'ts-pattern';
+import {
+  DeleteRefugeFromIdErrors,
+  DeleteRefugeResponse,
+} from '../../../../schemas/refuge/delete-refuge-schema';
 
 @Component({
   selector: 'app-refuges-detail',
@@ -17,11 +21,13 @@ import { match } from 'ts-pattern';
 export class RefugesDetailPage implements OnInit {
   refuge?: Refuge;
   fabExpanded: boolean = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private refugeService: RefugeService,
     private alertController: AlertController,
+    private loadingController: LoadingController,
   ) {
     const refugeId = this.getRefugeIdFromUrl();
     this.fetchRefuge(refugeId).then();
@@ -59,12 +65,12 @@ export class RefugesDetailPage implements OnInit {
     match(response)
       .with({ status: 'correct' }, (response) => (this.refuge = response.data))
       .with({ status: 'error' }, (response) => {
-        this.handleError(response.error);
+        this.handleGetError(response.error);
       })
       .exhaustive();
   }
 
-  private handleError(error: GetRefugeFromIdErrors) {
+  private handleGetError(error: GetRefugeFromIdErrors) {
     match(error)
       .with(GetRefugeFromIdErrors.NOT_FOUND, () => this.handleNotFoundRefuge())
       .with(GetRefugeFromIdErrors.CLIENT_SEND_DATA_ERROR, () =>
@@ -101,43 +107,47 @@ export class RefugesDetailPage implements OnInit {
   }
 
   private handleNotFoundRefuge() {
-    this.router
-      .navigate(['not-found-page'], {
-        skipLocationChange: true,
-      })
-      .then();
+    this.finishLoadAnimAndExecute(() =>
+      this.router
+        .navigate(['not-found-page'], {
+          skipLocationChange: true,
+        })
+        .then(),
+    ).then();
   }
 
   private handleBadProgrammerData() {
-    this.router
-      .navigate(['programming-error'], {
-        skipLocationChange: true,
-      })
-      .then();
+    this.finishLoadAnimAndExecute(() =>
+      this.router
+        .navigate(['programming-error'], {
+          skipLocationChange: true,
+        })
+        .then(),
+    ).then();
   }
 
   private handleBadUserData() {
-    this.router
-      .navigate(['not-found-page'], {
-        skipLocationChange: true,
-      })
-      .then();
+    this.finishLoadAnimAndExecute(() =>
+      this.router
+        .navigate(['not-found-page'], {
+          skipLocationChange: true,
+        })
+        .then(),
+    ).then();
   }
 
   private handleUnknownError() {
-    this.router
-      .navigate(['internal-error-page'], {
-        skipLocationChange: true,
-      })
-      .then();
+    this.finishLoadAnimAndExecute(() =>
+      this.router
+        .navigate(['internal-error-page'], {
+          skipLocationChange: true,
+        })
+        .then(),
+    ).then();
   }
 
   toggleFab() {
     this.fabExpanded = !this.fabExpanded;
-  }
-
-  createRefuge() {
-    console.log('create refuge');
   }
 
   editRefuge() {
@@ -145,6 +155,108 @@ export class RefugesDetailPage implements OnInit {
   }
 
   deleteRefuge() {
-    console.log('delete refuge');
+    const alert = this.alertController.create({
+      header: 'Esborrar refugi',
+      message: 'Estàs segur que vols esborrar el refugi?',
+      buttons: [
+        {
+          text: 'Cancel·lar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => this.alertController.dismiss().then(),
+        },
+        {
+          text: 'Esborrar',
+          handler: () => {
+            this.alertController
+              .dismiss()
+              .then(() => this.confirmDeleteRefuge());
+          },
+        },
+      ],
+    });
+    alert.then((alert) => alert.present());
+  }
+
+  private confirmDeleteRefuge() {
+    if (this.refuge == undefined) return;
+    this.startDeleteRefugeAnimation().then(() => {
+      // @ts-ignore
+      this.refugeService.deleteRefuge(this.refuge.id).subscribe({
+        next: (response: DeleteRefugeResponse) => {
+          this.alertController.dismiss().then();
+          this.handleDeleteResponse(response);
+          // this.router.navigate(['refuges']).then();
+        },
+        error: () => {
+          this.alertController.dismiss().then();
+          this.handleClientError().then();
+        },
+      });
+    });
+  }
+
+  private handleDeleteResponse(response: DeleteRefugeResponse) {
+    match(response)
+      .with({ status: 'correct' }, () => {
+        this.finishLoadAnimAndExecute(() => {
+          this.router.navigate(['refuges']).then();
+        }).then();
+      })
+      .with({ status: 'error' }, (response) => {
+        this.handleDeleteError(response.error);
+      })
+      .exhaustive();
+  }
+
+  private handleDeleteError(error: DeleteRefugeFromIdErrors) {
+    match(error)
+      .with(DeleteRefugeFromIdErrors.UNAUTHORIZED, () =>
+        this.handleUnauthorized(),
+      )
+      .with(DeleteRefugeFromIdErrors.FORBIDDEN, () => this.handleForbidden())
+      .with(DeleteRefugeFromIdErrors.NOT_FOUND, () =>
+        this.handleNotFoundRefuge(),
+      )
+      .with(DeleteRefugeFromIdErrors.CLIENT_SEND_DATA_ERROR, () =>
+        this.handleBadUserData(),
+      )
+      .with(DeleteRefugeFromIdErrors.PROGRAMMER_SEND_DATA_ERROR, () =>
+        this.handleBadProgrammerData(),
+      )
+      .with(DeleteRefugeFromIdErrors.SERVER_INCORRECT_DATA_FORMAT_ERROR, () =>
+        this.handleUnknownError(),
+      )
+      .with(DeleteRefugeFromIdErrors.UNKNOWN_ERROR, () =>
+        this.handleUnknownError(),
+      )
+      .exhaustive();
+  }
+
+  private handleUnauthorized() {
+    this.finishLoadAnimAndExecute(() =>
+      this.router.navigate(['login']).then(),
+    ).then();
+  }
+
+  private handleForbidden() {
+    this.finishLoadAnimAndExecute(() =>
+      this.router.navigate(['forbidden-page']).then(),
+    ).then();
+  }
+
+  private async startDeleteRefugeAnimation() {
+    const loading = await this.loadingController.create({
+      message: 'Esborrant refugi...',
+      translucent: true,
+    });
+    return await loading.present();
+  }
+
+  private async finishLoadAnimAndExecute(
+    func: (() => void) | (() => Promise<void>),
+  ) {
+    await this.loadingController.dismiss().then();
+    await func();
   }
 }
