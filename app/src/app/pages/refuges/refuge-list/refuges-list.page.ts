@@ -105,4 +105,8 @@ export class RefugesListPage implements OnInit {
       refuge.name.toLowerCase().includes(this.searchTerm.toLowerCase()),
     );
   }
+
+  createRefuge() {
+    console.log('create refuge');
+  }
 }
