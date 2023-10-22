@@ -7,7 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { RefugesPageRoutingModule } from './refuges-routing.module';
 
 import { RefugesListPage } from './refuge-list/refuges-list.page';
-import { RefugesDetailPage } from './refuge-detail/refuges-detail/refuges-detail.page';
+import { RefugesDetailPage } from './refuge-detail/refuges-detail.page';
+import { RefugeCreatePage } from './refuge-create/refuge-create.page';
+import { RefugeUdpatePage } from './refuge-update/refuge-udpate.page';
 
 @NgModule({
   imports: [
@@ -17,6 +19,11 @@ import { RefugesDetailPage } from './refuge-detail/refuges-detail/refuges-detail
     RefugesPageRoutingModule,
     NgOptimizedImage,
   ],
-  declarations: [RefugesListPage, RefugesDetailPage],
+  declarations: [
+    RefugesListPage,
+    RefugesDetailPage,
+    RefugeCreatePage,
+    RefugeUdpatePage,
+  ],
 })
 export class RefugesPageModule {}

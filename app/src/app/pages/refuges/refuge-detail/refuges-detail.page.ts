@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Refuge } from '../../../../schemas/refuge/refuge';
+import { Refuge } from '../../../schemas/refuge/refuge';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RefugeService } from '../../../../services/refuge/refuge.service';
+import { RefugeService } from '../../../services/refuge/refuge.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import {
   GetRefugeFromIdErrors,
   GetRefugeResponse,
-} from '../../../../schemas/refuge/get-refuge-schema';
+} from '../../../schemas/refuge/get-refuge-schema';
 import { match } from 'ts-pattern';
 import {
   DeleteRefugeFromIdErrors,
   DeleteRefugeResponse,
-} from '../../../../schemas/refuge/delete-refuge-schema';
+} from '../../../schemas/refuge/delete-refuge-schema';
 
 @Component({
   selector: 'app-refuges-detail',
