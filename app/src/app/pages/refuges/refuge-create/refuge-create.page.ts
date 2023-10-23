@@ -9,7 +9,6 @@ import { match } from 'ts-pattern';
 import {
   Camera,
   CameraResultType,
-  GalleryImageOptions,
   ImageOptions,
   Photo,
 } from '@capacitor/camera';
@@ -17,6 +16,11 @@ import {
   CreateRefugeError,
   ServerError,
 } from '../../../schemas/refuge/create/create-refuge-error';
+import { ImageService } from '../../../services/image/image.service';
+import {
+  PostImageErrors,
+  PostImageResponse,
+} from '../../../schemas/image/post-image-schema';
 
 @Component({
   selector: 'app-refuge-create',
@@ -46,6 +50,7 @@ export class RefugeCreatePage implements OnInit {
     private refugeService: RefugeService,
     private loadingController: LoadingController,
     private alertController: AlertController,
+    private imageService: ImageService,
   ) {}
 
   ngOnInit() {}
@@ -210,6 +215,14 @@ export class RefugeCreatePage implements OnInit {
     await this.showError(() => (this.errorMessage = message));
   }
 
+  async postImageLoading(): Promise<void> {
+    const loading = await this.loadingController.create({
+      message: 'Pujant imatge...',
+      translucent: true,
+    });
+    return await loading.present();
+  }
+
   async pickImage() {
     const options: ImageOptions = {
       quality: 100,
@@ -217,7 +230,58 @@ export class RefugeCreatePage implements OnInit {
       resultType: CameraResultType.Base64,
     };
     await Camera.getPhoto(options).then((image: Photo) => {
-      console.log(image);
+      this.postImageLoading().then(() => {
+        this.imageService.uploadImage(image).subscribe({
+          next: (response: PostImageResponse) => {
+            this.handlePostImageResponse(response);
+          },
+          error: () => {
+            this.handleClientError().then();
+          },
+        });
+      });
+    });
+  }
+
+  private handlePostImageResponse(response: PostImageResponse): void {
+    match(response)
+      .with({ status: 'correct' }, (response) => {
+        this.handleCorrectPostImageResponse(response.data);
+      })
+      .with({ status: 'error' }, async (response) => {
+        this.handleImageError(response.error);
+      })
+      .exhaustive();
+  }
+
+  private handleCorrectPostImageResponse(filePath: string) {
+    this.loadingController.dismiss().then(() => {
+      this.form.image = filePath;
+    });
+  }
+
+  private handleImageError(error: PostImageErrors) {
+    match(error)
+      .with(PostImageErrors.INVALID_REQUEST, () => {
+        this.handleInvalidRequestError().then();
+      })
+      .with(PostImageErrors.PROGRAMMER_SEND_DATA_ERROR, () => {
+        this.handleIncorrectDataError().then();
+      })
+      .with(PostImageErrors.UNKNOWN_ERROR, () => {
+        this.handleUnknownError().then();
+      })
+      .with(PostImageErrors.SERVER_INCORRECT_DATA_FORMAT_ERROR, () => {
+        this.handleUnknownError().then();
+      })
+      .exhaustive();
+  }
+
+  private async handleInvalidRequestError() {
+    await this.showError(async () => {
+      await this.showErrorMessage(
+        'El format del fitxer ha de ser .png o .jpeg',
+      ).then();
     });
   }
 }
