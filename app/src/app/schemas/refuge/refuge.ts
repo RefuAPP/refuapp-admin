@@ -17,6 +17,10 @@ export type Refuge = {
   };
 };
 
+export type CreateRefuge = Omit<Refuge, 'id'>;
+
+export const CreateRefugePattern: P.Pattern<CreateRefuge> = {};
+
 export const RefugePattern: P.Pattern<Refuge> = {};
 
 export function isValidId(id: string): boolean {

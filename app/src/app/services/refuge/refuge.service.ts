@@ -6,7 +6,12 @@ import {
   GetAllRefugesResponse,
 } from '../../schemas/refuge/get-all-refuges-schema';
 import { environment } from '../../../environments/environment';
-import { isValidId, Refuge, RefugePattern } from '../../schemas/refuge/refuge';
+import {
+  CreateRefuge,
+  isValidId,
+  Refuge,
+  RefugePattern,
+} from '../../schemas/refuge/refuge';
 import { isMatching } from 'ts-pattern';
 import {
   GetRefugeFromIdErrors,
@@ -16,6 +21,11 @@ import {
   DeleteRefugeFromIdErrors,
   DeleteRefugeResponse,
 } from '../../schemas/refuge/delete-refuge-schema';
+import {
+  CreateRefugeResponse,
+  fromError,
+  fromResponse,
+} from '../../schemas/refuge/create/create-refuge-response';
 
 @Injectable({
   providedIn: 'root',
@@ -125,5 +135,24 @@ export class RefugeService {
 
   private deleteRefugeFromIdEndpoint(id: string): string {
     return `${environment.API}/refuges/${id}/`;
+  }
+
+  createRefuge(refuge: CreateRefuge): Observable<CreateRefugeResponse> {
+    return this.createRefugeFromApi(refuge);
+  }
+
+  private createRefugeFromApi(
+    refuge: CreateRefuge,
+  ): Observable<CreateRefugeResponse> {
+    const endpoint = this.createRefugeEndpoint();
+    return this.http.post<Refuge>(endpoint, refuge).pipe(
+      map((response: Refuge) => fromResponse(response)),
+      catchError((err: HttpErrorResponse) => of(fromError(err))),
+      retry(3),
+    );
+  }
+
+  private createRefugeEndpoint(): string {
+    return `${environment.API}/refuges/`;
   }
 }
