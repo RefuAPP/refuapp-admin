@@ -5,9 +5,117 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Create refuge</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="sign-up-logo">
+    <img
+      src="../../../../assets/img/create-refuge.webp"
+      alt="Image of a mountain terrain being constructed"
+    />
+  </div>
+  <div class="create-refuge-form">
+    <form #createRefugeForm="ngForm" novalidate>
+      <ion-input
+        label="Nom"
+        label-placement="stacked"
+        fill="outline"
+        clear-input="true"
+        autocapitalize="on"
+        [(ngModel)]="form.name"
+        name="name"
+        type="text"
+        errorText="Introduïr el nom del refugi és obligatori"
+        required="true"
+      >
+      </ion-input>
+      <!--      TODO: Image-->
+      <ion-input
+        label="Regió"
+        label-placement="stacked"
+        fill="outline"
+        clearInput="true"
+        autocapitalize="on"
+        [(ngModel)]="form.region"
+        name="region"
+        type="text"
+        errorText="Introduïr la regió del refugi és obligatori"
+        required="true"
+      >
+      </ion-input>
+      <ion-input
+        label="Altitud"
+        label-placement="stacked"
+        min="0"
+        clear-input="true"
+        fill="outline"
+        [(ngModel)]="form.altitude"
+        name="altitude"
+        type="number"
+        errorText="Introduïr l'altitud del refugi és obligatori"
+        required="true"
+      >
+      </ion-input>
+      <ion-input
+        label="Longitud"
+        label-placement="stacked"
+        fill="outline"
+        min="0"
+        clear-input="true"
+        [(ngModel)]="form.coordinates.longitude"
+        name="longitude"
+        type="number"
+        errorText="Introduïr la longitud del refugi és obligatori"
+        required="true"
+      >
+      </ion-input>
+      <ion-input
+        label="Latitud"
+        label-placement="stacked"
+        fill="outline"
+        [(ngModel)]="form.coordinates.latitude"
+        name="latitude"
+        min="0"
+        clear-input="true"
+        type="number"
+        errorText="Introduïr la latitud del refugi és obligatori"
+        required="true"
+      >
+      </ion-input>
+      <ion-input
+        label="Capacitat d'hivern"
+        label-placement="stacked"
+        fill="outline"
+        min="0"
+        clear-input="true"
+        [(ngModel)]="form.capacity.winter"
+        name="winterCapacity"
+        type="number"
+        errorText="Introduïr la capacitat d'hivern del refugi és obligatori"
+        required="true"
+      >
+      </ion-input>
+      <ion-input
+        label="Capacitat d'estiu"
+        label-placement="stacked"
+        fill="outline"
+        [(ngModel)]="form.capacity.summer"
+        min="0"
+        clear-input="true"
+        name="summerCapacity"
+        type="number"
+        errorText="Introduïr la capacitat d'estiu del refugi és obligatori"
+        required="true"
+      >
+      </ion-input>
+      <ion-note color="danger" *ngIf="hasError"> {{errorMessage}} </ion-note>
+      <ion-row>
+        <ion-col>
+          <ion-button
+            (click)="onCreate(createRefugeForm)"
+            type="submit"
+            expand="block"
+            >Create refuge
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
 </ion-content>
