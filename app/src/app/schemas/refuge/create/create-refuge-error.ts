@@ -4,6 +4,10 @@ import { isMatching, match, P } from 'ts-pattern';
 export type CreateRefugeError = ServerError | ClientError;
 
 export enum ServerError {
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
+  NOT_FOUND = 'NOT_FOUND',
+  CONFLICT = 'CONFLICT',
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
   INCORRECT_DATA = 'INCORRECT_DATA',
 }
@@ -20,6 +24,10 @@ export namespace CreateRefugeError {
       .with(0, () => {
         throw new Error('You are offline or the server is down.');
       })
+      .with(HttpStatusCode.Unauthorized, () => ServerError.UNAUTHORIZED)
+      .with(HttpStatusCode.Forbidden, () => ServerError.FORBIDDEN)
+      .with(HttpStatusCode.NotFound, () => ServerError.NOT_FOUND)
+      .with(HttpStatusCode.Conflict, () => ServerError.CONFLICT)
       .with(HttpStatusCode.UnprocessableEntity, () =>
         getErrorFromUnprocessableEntity(err),
       )
