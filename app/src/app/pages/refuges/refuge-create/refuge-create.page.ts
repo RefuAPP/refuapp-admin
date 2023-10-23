@@ -31,7 +31,7 @@ export class RefugeCreatePage implements OnInit {
   form: CreateRefuge = {
     name: '',
     region: '',
-    image: '',
+    image: 'no-photo.png',
     altitude: 0,
     coordinates: {
       latitude: 0,
