@@ -7,6 +7,13 @@ import { NgForm } from '@angular/forms';
 import { CreateRefugeResponse } from '../../../schemas/refuge/create/create-refuge-response';
 import { match } from 'ts-pattern';
 import {
+  Camera,
+  CameraResultType,
+  GalleryImageOptions,
+  ImageOptions,
+  Photo,
+} from '@capacitor/camera';
+import {
   CreateRefugeError,
   ServerError,
 } from '../../../schemas/refuge/create/create-refuge-error';
@@ -201,5 +208,16 @@ export class RefugeCreatePage implements OnInit {
   private async showErrorMessage(message: string) {
     this.hasError = true;
     await this.showError(() => (this.errorMessage = message));
+  }
+
+  async pickImage() {
+    const options: ImageOptions = {
+      quality: 100,
+      allowEditing: true,
+      resultType: CameraResultType.Base64,
+    };
+    await Camera.getPhoto(options).then((image: Photo) => {
+      console.log(image);
+    });
   }
 }

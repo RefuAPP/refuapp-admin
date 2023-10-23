@@ -5,7 +5,12 @@
 }
 
 .sign-up-logo img {
-  max-width: 450px;
+  max-width: 250px;
+}
+
+.sign-up-logo img:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .create-refuge-form {
