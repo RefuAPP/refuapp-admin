@@ -1,11 +1,6 @@
 <ion-header [translucent]="true" mode="md">
   <ion-toolbar>
     <ion-title>Refuges</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-grid>
     <ion-row>
       <ion-col size="12">
         <ion-searchbar
@@ -17,6 +12,11 @@
         ></ion-searchbar>
       </ion-col>
     </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
     <ion-row>
       <ion-col
         routerLink="/refuges/{{refuge.id}}"
