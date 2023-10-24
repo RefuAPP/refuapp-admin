@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   catchError,
   distinctUntilChanged,
@@ -10,33 +10,52 @@ import {
   of,
   retry,
   share,
-  timer
+  timer,
 } from 'rxjs';
-import {GetAllRefugesErrors, GetAllRefugesResponse,} from '../../schemas/refuge/get-all-refuges-schema';
-import {environment} from '../../../environments/environment';
-import {CreateRefuge, isValidId, Refuge, RefugePattern} from '../../schemas/refuge/refuge';
-import {isMatching} from 'ts-pattern';
-import {GetRefugeFromIdErrors, GetRefugeResponse,} from '../../schemas/refuge/get-refuge-schema';
-import {DeleteRefugeFromIdErrors, DeleteRefugeResponse,} from '../../schemas/refuge/delete-refuge-schema';
-import {CreateRefugeResponse, fromError, fromResponse} from "../../schemas/refuge/create/create-refuge-response";
+import {
+  GetAllRefugesErrors,
+  GetAllRefugesResponse,
+} from '../../schemas/refuge/get-all-refuges-schema';
+import { environment } from '../../../environments/environment';
+import {
+  CreateRefuge,
+  isValidId,
+  Refuge,
+  RefugePattern,
+} from '../../schemas/refuge/refuge';
+import { isMatching } from 'ts-pattern';
+import {
+  GetRefugeFromIdErrors,
+  GetRefugeResponse,
+} from '../../schemas/refuge/get-refuge-schema';
+import {
+  DeleteRefugeFromIdErrors,
+  DeleteRefugeResponse,
+} from '../../schemas/refuge/delete-refuge-schema';
+import {
+  CreateRefugeResponse,
+  fromError,
+  fromResponse,
+} from '../../schemas/refuge/create/create-refuge-response';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RefugeService {
-  private getRefugesConnection?: Observable<GetAllRefugesResponse>
+  private getRefugesConnection?: Observable<GetAllRefugesResponse>;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getRefuges(): Observable<GetAllRefugesResponse> {
     if (!this.getRefugesConnection) {
-      this.getRefugesConnection = timer(0, 3_000).pipe(
-        mergeMap(() => this.getAllRefugesFromApi()),
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      ).pipe(
-        share()
-      );
+      this.getRefugesConnection = timer(0, 3_000)
+        .pipe(
+          mergeMap(() => this.getAllRefugesFromApi()),
+          distinctUntilChanged(
+            (a, b) => JSON.stringify(a) === JSON.stringify(b),
+          ),
+        )
+        .pipe(share());
     }
     return this.getRefugesConnection;
   }
@@ -68,7 +87,7 @@ export class RefugeService {
     return this.http.get<Refuge[]>(endpoint).pipe(
       map<Refuge[], GetAllRefugesResponse | Error>((refuges: Refuge[]) => {
         if (isMatching(RefugePattern, refuges.values()))
-          return {status: 'correct', data: refuges};
+          return { status: 'correct', data: refuges };
         return {
           status: 'error',
           error: GetAllRefugesErrors.SERVER_INCORRECT_DATA_FORMAT_ERROR,
@@ -94,7 +113,7 @@ export class RefugeService {
     return this.http.get<Refuge>(endpoint).pipe(
       map<Refuge, GetRefugeResponse | Error>((refuge: Refuge) => {
         if (isMatching(RefugePattern, refuge))
-          return {status: 'correct', data: refuge};
+          return { status: 'correct', data: refuge };
         return {
           status: 'error',
           error: GetRefugeFromIdErrors.SERVER_INCORRECT_DATA_FORMAT_ERROR,
@@ -120,7 +139,7 @@ export class RefugeService {
     return this.http.delete<Refuge>(endpoint).pipe(
       map<Refuge, DeleteRefugeResponse | Error>((refuge: Refuge) => {
         if (isMatching(RefugePattern, refuge))
-          return {status: 'correct', data: refuge};
+          return { status: 'correct', data: refuge };
         return {
           status: 'error',
           error: DeleteRefugeFromIdErrors.SERVER_INCORRECT_DATA_FORMAT_ERROR,

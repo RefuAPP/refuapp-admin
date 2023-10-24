@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {RefugeService} from '../../../services/refuge/refuge.service';
-import {AlertController} from '@ionic/angular';
-import {isMatching, match} from 'ts-pattern';
-import {Refuge} from '../../../schemas/refuge/refuge';
+import { Component, OnInit } from '@angular/core';
+import { RefugeService } from '../../../services/refuge/refuge.service';
+import { AlertController } from '@ionic/angular';
+import { isMatching, match } from 'ts-pattern';
+import { Refuge } from '../../../schemas/refuge/refuge';
 import {
   CorrectGetRefuges,
   CorrectGetRefugesPattern,
@@ -10,8 +10,15 @@ import {
   ErrorGetRefugesPattern,
   GetAllRefugesErrors,
 } from '../../../schemas/refuge/get-all-refuges-schema';
-import {Router} from '@angular/router';
-import {BehaviorSubject, combineLatest, filter, map, Observable, Subject} from "rxjs";
+import { Router } from '@angular/router';
+import {
+  BehaviorSubject,
+  combineLatest,
+  filter,
+  map,
+  Observable,
+  Subject,
+} from 'rxjs';
 
 @Component({
   selector: 'app-refuges',
@@ -20,9 +27,9 @@ import {BehaviorSubject, combineLatest, filter, map, Observable, Subject} from "
 })
 export class RefugesListPage implements OnInit {
   searchTerm: string = '';
-  refuges: Observable<Refuge[]>
-  errors: Observable<GetAllRefugesErrors>
-  private search: Subject<String>
+  refuges: Observable<Refuge[]>;
+  errors: Observable<GetAllRefugesErrors>;
+  private search: Subject<String>;
 
   constructor(
     private router: Router,
@@ -30,30 +37,36 @@ export class RefugesListPage implements OnInit {
     private alertController: AlertController,
   ) {
     this.errors = this.refugeService.getRefuges().pipe(
-      filter((response): response is ErrorGetRefuges => !isMatching(ErrorGetRefugesPattern, response)),
-      map((response: ErrorGetRefuges) => response.error)
+      filter(
+        (response): response is ErrorGetRefuges =>
+          !isMatching(ErrorGetRefugesPattern, response),
+      ),
+      map((response: ErrorGetRefuges) => response.error),
     );
-    this.search = new BehaviorSubject<String>("");
+    this.search = new BehaviorSubject<String>('');
     const searchInput = this.search.asObservable();
     const allRefuges = this.refugeService.getRefuges().pipe(
-      filter((response): response is CorrectGetRefuges => isMatching(CorrectGetRefugesPattern, response)),
+      filter((response): response is CorrectGetRefuges =>
+        isMatching(CorrectGetRefugesPattern, response),
+      ),
       map((response: CorrectGetRefuges) => response.data),
     );
     this.refuges = combineLatest([searchInput, allRefuges]).pipe(
       map(([searchTerm, refuges]) => {
-        if (searchTerm === "") return refuges;
-        return refuges.filter((refuge: Refuge) => refuge.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        if (searchTerm === '') return refuges;
+        return refuges.filter((refuge: Refuge) =>
+          refuge.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        );
       }),
-    )
+    );
   }
 
   ngOnInit() {
     this.errors.subscribe({
       next: (error: GetAllRefugesErrors) => this.handleError(error),
       error: () => this.handleClientError().then(),
-    })
+    });
   }
-
 
   getImageUrlFor(refuge: Refuge): string {
     return this.refugeService.getImageUrlFor(refuge);
@@ -61,10 +74,6 @@ export class RefugesListPage implements OnInit {
 
   searchByName() {
     this.search.next(this.searchTerm);
-  }
-
-  createRefuge() {
-    console.log('create refuge');
   }
 
   private handleError(error: GetAllRefugesErrors) {

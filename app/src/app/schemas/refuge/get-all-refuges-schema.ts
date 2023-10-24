@@ -1,6 +1,6 @@
-import {Refuge} from './refuge';
-import {HttpErrorResponse} from '@angular/common/http';
-import {match, P} from 'ts-pattern';
+import { Refuge } from './refuge';
+import { HttpErrorResponse } from '@angular/common/http';
+import { match, P } from 'ts-pattern';
 
 export enum GetAllRefugesErrors {
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
@@ -10,16 +10,14 @@ export enum GetAllRefugesErrors {
 export type CorrectGetRefuges = {
   status: 'correct';
   data: Refuge[];
-}
+};
 
 export type ErrorGetRefuges = {
   status: 'error';
   error: GetAllRefugesErrors;
 };
 
-export type GetAllRefugesResponse =
-  | CorrectGetRefuges
-  | ErrorGetRefuges;
+export type GetAllRefugesResponse = CorrectGetRefuges | ErrorGetRefuges;
 
 export const CorrectGetRefugesPattern: P.Pattern<CorrectGetRefuges> = {};
 export const ErrorGetRefugesPattern: P.Pattern<ErrorGetRefuges> = {};
