@@ -1,4 +1,4 @@
-FROM node:20-alpine as build
+FROM --platform=linux/amd64 node:20-alpine as build
 ARG BACKEND_URL
 ENV BACKEND_URL $BACKEND_URL
 WORKDIR /app
