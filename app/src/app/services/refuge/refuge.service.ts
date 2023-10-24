@@ -1,6 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {catchError, distinctUntilChanged, map, mergeMap, Observable, ObservableInput, of, retry, timer} from 'rxjs';
+import {
+  catchError,
+  distinctUntilChanged,
+  map,
+  mergeMap,
+  Observable,
+  ObservableInput,
+  of,
+  retry,
+  share,
+  timer
+} from 'rxjs';
 import {GetAllRefugesErrors, GetAllRefugesResponse,} from '../../schemas/refuge/get-all-refuges-schema';
 import {environment} from '../../../environments/environment';
 import {CreateRefuge, isValidId, Refuge, RefugePattern} from '../../schemas/refuge/refuge';
@@ -13,17 +24,21 @@ import {CreateRefugeResponse, fromError, fromResponse} from "../../schemas/refug
   providedIn: 'root',
 })
 export class RefugeService {
+  private getRefugesConnection?: Observable<GetAllRefugesResponse>
+
   constructor(private http: HttpClient) {
   }
 
-  /**
-   * @description get refuges from the API every 3 seconds
-   */
   getRefuges(): Observable<GetAllRefugesResponse> {
-    return timer(0, 3000).pipe(
-      mergeMap(() => this.getAllRefugesFromApi()),
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
-    );
+    if (!this.getRefugesConnection) {
+      this.getRefugesConnection = timer(0, 3_000).pipe(
+        mergeMap(() => this.getAllRefugesFromApi()),
+        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+      ).pipe(
+        share()
+      );
+    }
+    return this.getRefugesConnection;
   }
 
   getRefugeFrom(id: string): Observable<GetRefugeResponse> {
