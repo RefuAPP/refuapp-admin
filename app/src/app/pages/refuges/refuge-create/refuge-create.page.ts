@@ -70,7 +70,6 @@ export class RefugeCreatePage implements OnInit {
   }
 
   private uploadImage(form: CreateRefuge): CreateRefuge {
-    // TODO: Check image, parse and upload if necessary, return form or error
     return form;
   }
 

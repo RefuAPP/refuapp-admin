@@ -151,7 +151,8 @@ export class RefugesDetailPage implements OnInit {
   }
 
   editRefuge() {
-    console.log('edit refuge');
+    if (this.refuge == undefined) return;
+    this.router.navigate(['refuges', 'update', this.refuge.id]).then();
   }
 
   deleteRefuge() {

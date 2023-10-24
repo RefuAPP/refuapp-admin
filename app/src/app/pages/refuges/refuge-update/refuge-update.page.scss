@@ -1,0 +1,22 @@
+.sign-up-logo {
+  min-height: 200px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.sign-up-logo img {
+  max-width: 250px;
+}
+
+.sign-up-logo img:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.create-refuge-form {
+  padding: 16px;
+}
+
+ion-input {
+  margin-bottom: 10px;
+}
