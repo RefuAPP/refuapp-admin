@@ -20,7 +20,7 @@
     <ion-row>
       <ion-col
         routerLink="/refuges/{{refuge.id}}"
-        *ngFor="let refuge of refuges"
+        *ngFor="let refuge of refuges | async"
         size-lg="6"
         size-md="6"
         size-sm="12"
@@ -54,17 +54,17 @@
               >
                 <div class="refuge-name">{{refuge.name}}</div>
                 <p>
-                  Regió: <br />
+                  Regió: <br/>
                   <strong> {{refuge.region}} </strong>
                 </p>
                 <p>
-                  Altitud: <br />
+                  Altitud: <br/>
                   <strong> {{refuge.altitude}}m </strong>
                 </p>
                 <p>
                   Capacitat:
-                  <br />
-                  <strong>- Hivern: {{refuge.capacity.winter}} </strong> <br />
+                  <br/>
+                  <strong>- Hivern: {{refuge.capacity.winter}} </strong> <br/>
                   <strong>- Estiu: {{refuge.capacity.summer}} </strong>
                 </p>
               </ion-col>

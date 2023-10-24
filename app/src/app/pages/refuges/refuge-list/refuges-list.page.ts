@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { RefugeService } from '../../../services/refuge/refuge.service';
-import { AlertController } from '@ionic/angular';
-import { match } from 'ts-pattern';
-import { Refuge } from '../../../schemas/refuge/refuge';
+import {Component, OnInit} from '@angular/core';
+import {RefugeService} from '../../../services/refuge/refuge.service';
+import {AlertController} from '@ionic/angular';
+import {isMatching, match} from 'ts-pattern';
+import {Refuge} from '../../../schemas/refuge/refuge';
 import {
+  CorrectGetRefuges,
+  CorrectGetRefugesPattern,
+  ErrorGetRefuges,
+  ErrorGetRefugesPattern,
   GetAllRefugesErrors,
-  GetAllRefugesResponse,
 } from '../../../schemas/refuge/get-all-refuges-schema';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
+import {BehaviorSubject, combineLatest, filter, map, Observable, Subject} from "rxjs";
 
 @Component({
   selector: 'app-refuges',
@@ -15,37 +19,52 @@ import { Router } from '@angular/router';
   styleUrls: ['./refuges-list.page.scss'],
 })
 export class RefugesListPage implements OnInit {
-  refuges: Refuge[] = [];
   searchTerm: string = '';
-  allRefuges: Refuge[] = [];
+  refuges: Observable<Refuge[]>
+  errors: Observable<GetAllRefugesErrors>
+  private search: Subject<String>
 
   constructor(
     private router: Router,
     private refugeService: RefugeService,
     private alertController: AlertController,
   ) {
-    this.getRefuges();
+    this.errors = this.refugeService.getRefuges().pipe(
+      filter((response): response is ErrorGetRefuges => !isMatching(ErrorGetRefugesPattern, response)),
+      map((response: ErrorGetRefuges) => response.error)
+    );
+    this.search = new BehaviorSubject<String>("");
+    const searchInput = this.search.asObservable();
+    const allRefuges = this.refugeService.getRefuges().pipe(
+      filter((response): response is CorrectGetRefuges => isMatching(CorrectGetRefugesPattern, response)),
+      map((response: CorrectGetRefuges) => response.data),
+    );
+    this.refuges = combineLatest([searchInput, allRefuges]).pipe(
+      map(([searchTerm, refuges]) => {
+        if (searchTerm === "") return refuges;
+        return refuges.filter((refuge: Refuge) => refuge.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      }),
+    )
   }
 
-  ngOnInit() {}
-
-  getRefuges() {
-    return this.refugeService.getRefuges().subscribe({
-      next: (response: any) => this.handleGetAllRefugesResponse(response),
+  ngOnInit() {
+    this.errors.subscribe({
+      next: (error: GetAllRefugesErrors) => this.handleError(error),
       error: () => this.handleClientError().then(),
-    });
+    })
   }
 
-  private handleGetAllRefugesResponse(response: GetAllRefugesResponse) {
-    match(response)
-      .with({ status: 'correct' }, (response) => {
-        this.allRefuges = response.data;
-        this.refuges = this.allRefuges;
-      })
-      .with({ status: 'error' }, (response) => {
-        this.handleError(response.error);
-      })
-      .exhaustive();
+
+  getImageUrlFor(refuge: Refuge): string {
+    return this.refugeService.getImageUrlFor(refuge);
+  }
+
+  searchByName() {
+    this.search.next(this.searchTerm);
+  }
+
+  createRefuge() {
+    console.log('create refuge');
   }
 
   private handleError(error: GetAllRefugesErrors) {
@@ -68,7 +87,6 @@ export class RefugesListPage implements OnInit {
           text: 'OK',
           handler: () => {
             this.alertController.dismiss().then();
-            this.getRefuges();
           },
         },
       ],
@@ -90,23 +108,5 @@ export class RefugesListPage implements OnInit {
         skipLocationChange: true,
       })
       .then();
-  }
-
-  getImageUrlFor(refuge: Refuge): string {
-    return this.refugeService.getImageUrlFor(refuge);
-  }
-
-  searchByName() {
-    if (this.searchTerm === '') {
-      this.refuges = this.allRefuges;
-      return;
-    }
-    this.refuges = this.allRefuges.filter((refuge: Refuge) =>
-      refuge.name.toLowerCase().includes(this.searchTerm.toLowerCase()),
-    );
-  }
-
-  createRefuge() {
-    console.log('create refuge');
   }
 }
