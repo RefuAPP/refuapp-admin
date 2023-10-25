@@ -22,6 +22,7 @@ import {
   isValidId,
   Refuge,
   RefugePattern,
+  UpdateRefuge,
 } from '../../schemas/refuge/refuge';
 import { isMatching } from 'ts-pattern';
 import {
@@ -37,6 +38,11 @@ import {
   fromError,
   fromResponse,
 } from '../../schemas/refuge/create/create-refuge-response';
+import {
+  UpdateRefugeResponse,
+  updateRefugeResponseFromError,
+  updateRefugeResponseFromResponse,
+} from '../../schemas/refuge/update/update-refuge-response';
 
 @Injectable({
   providedIn: 'root',
@@ -177,5 +183,26 @@ export class RefugeService {
 
   private createRefugeEndpoint(): string {
     return `${environment.API}/refuges/`;
+  }
+
+  updateRefuge(refuge: UpdateRefuge): Observable<UpdateRefugeResponse> {
+    return this.updateRefugeFromApi(refuge);
+  }
+
+  private updateRefugeFromApi(
+    refuge: UpdateRefuge,
+  ): Observable<UpdateRefugeResponse> {
+    const endpoint = this.updateRefugeEndpoint(refuge.id);
+    return this.http.post<Refuge>(endpoint, refuge).pipe(
+      map((response: Refuge) => updateRefugeResponseFromResponse(response)),
+      catchError((err: HttpErrorResponse) =>
+        of(updateRefugeResponseFromError(err)),
+      ),
+      retry(3),
+    );
+  }
+
+  private updateRefugeEndpoint(id: string): string {
+    return `${environment.API}/refuges/${id}/`;
   }
 }

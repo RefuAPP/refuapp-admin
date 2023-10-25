@@ -20,6 +20,9 @@ import {
 } from '../../../schemas/image/post-image-schema';
 import { ImageService } from '../../../services/image/image.service';
 import { NgForm } from '@angular/forms';
+import { UpdateRefugeResponse } from '../../../schemas/refuge/update/update-refuge-response';
+import { UpdateRefugeError } from '../../../schemas/refuge/update/update-refuge-error';
+import { ServerError } from '../../../schemas/refuge/create/create-refuge-error';
 
 @Component({
   selector: 'app-refuge-update',
@@ -29,6 +32,7 @@ import { NgForm } from '@angular/forms';
 export class RefugeUdpatePage implements OnInit {
   refuge?: Refuge;
   form: UpdateRefuge = {
+    id: '',
     name: '',
     region: '',
     image: 'no-photo.png',
@@ -82,6 +86,7 @@ export class RefugeUdpatePage implements OnInit {
       .with({ status: 'correct' }, (response) => {
         this.refuge = response.data;
         this.form = {
+          id: this.refuge.id,
           name: this.refuge.name,
           region: this.refuge.region,
           image: this.refuge.image,
@@ -265,10 +270,97 @@ export class RefugeUdpatePage implements OnInit {
     await this.showError(() => (this.errorMessage = message));
   }
 
-  onUpdate(form: NgForm) {
-    if (form.invalid) return;
+  async updateRefugeLoading(): Promise<void> {
+    const loading = await this.loadingController.create({
+      message: 'Actualitzant refugi...',
+      translucent: true,
+    });
+    return await loading.present();
   }
 
+  onUpdate(form: NgForm) {
+    if (form.invalid) return;
+    const request = this.form;
+    this.updateRefuge(request);
+  }
+
+  private updateRefuge(request: UpdateRefuge) {
+    this.updateRefugeLoading().then(() => {
+      this.refugeService.updateRefuge(request).subscribe({
+        next: (response: UpdateRefugeResponse) =>
+          this.handleUpdateRefugeResponse(response),
+        error: () => this.handleClientError().then(),
+      });
+    });
+  }
+
+  private handleUpdateRefugeResponse(response: UpdateRefugeResponse) {
+    match(response)
+      .with({ status: 'updated' }, (response) => {
+        this.handleCorrectCreateRefugeResponse(response.data);
+      })
+      .with({ status: 'error' }, async (response) => {
+        this.handleError(response.error);
+      })
+      .exhaustive();
+  }
+
+  private handleCorrectCreateRefugeResponse(refuge: Refuge) {
+    this.loadingController.dismiss().then(() => {
+      this.router.navigate(['refuges', refuge.id]).then();
+    });
+  }
+
+  private handleError(error: UpdateRefugeError) {
+    match(error)
+      .with(ServerError.UNAUTHORIZED, () => {
+        this.handleUnauthorizedError().then();
+      })
+      .with(ServerError.FORBIDDEN, () => {
+        this.handleForbiddenError().then();
+      })
+      .with(ServerError.NOT_FOUND, () => {
+        this.handleNotFoundRefuge();
+      })
+      .with(ServerError.CONFLICT, () => {
+        this.handleConflictError().then();
+      })
+      .with(ServerError.INCORRECT_DATA, () => {
+        this.handleBadProgrammerData().then();
+      })
+      .with(ServerError.UNKNOWN_ERROR, () => {
+        this.handleUnknownError().then();
+      })
+      .with({ type: 'INVALID_USER_DATA' }, (error) => {
+        this.showErrorMessage(error.message).then();
+      })
+      .exhaustive();
+  }
+
+  private async handleUnauthorizedError() {
+    await this.showError(async () => {
+      await this.showErrorMessage(
+        'Trapella! La teva sessió no està iniciada!',
+      ).then();
+    });
+  }
+
+  private async handleForbiddenError() {
+    await this.showError(async () => {
+      await this.router
+        .navigate(['/forbidden'], {
+          skipLocationChange: true,
+        })
+        .then();
+    });
+  }
+  private async handleConflictError() {
+    await this.showError(async () => {
+      await this.showErrorMessage(
+        'Ja existeix un refugi amb aquest nom',
+      ).then();
+    });
+  }
   getImageUrl(): string | undefined {
     if (this.refuge == undefined) return undefined;
     return this.refugeService.getImageUrlFor(this.refuge);
