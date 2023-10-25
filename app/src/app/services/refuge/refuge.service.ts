@@ -111,7 +111,7 @@ export class RefugeService {
   }
 
   private getAllRefugesEndpoint(): string {
-    return `${environment.API}/refuges/`;
+    return `${environment.API}/refuges`;
   }
 
   private getRefugeFromApi(id: string): Observable<GetRefugeResponse> {
@@ -137,7 +137,7 @@ export class RefugeService {
   }
 
   private getRefugeFromIdEndpoint(id: string): string {
-    return `${environment.API}/refuges/${id}/`;
+    return `${environment.API}/refuges/${id}`;
   }
 
   private deleteRefugeFromApi(id: string): Observable<DeleteRefugeResponse> {
@@ -163,7 +163,7 @@ export class RefugeService {
   }
 
   private deleteRefugeFromIdEndpoint(id: string): string {
-    return `${environment.API}/refuges/${id}/`;
+    return `${environment.API}/refuges/${id}`;
   }
 
   createRefuge(refuge: CreateRefuge): Observable<CreateRefugeResponse> {
@@ -182,7 +182,7 @@ export class RefugeService {
   }
 
   private createRefugeEndpoint(): string {
-    return `${environment.API}/refuges/`;
+    return `${environment.API}/refuges`;
   }
 
   updateRefuge(refuge: UpdateRefuge): Observable<UpdateRefugeResponse> {
@@ -203,6 +203,6 @@ export class RefugeService {
   }
 
   private updateRefugeEndpoint(id: string): string {
-    return `${environment.API}/refuges/${id}/`;
+    return `${environment.API}/refuges/${id}`;
   }
 }
