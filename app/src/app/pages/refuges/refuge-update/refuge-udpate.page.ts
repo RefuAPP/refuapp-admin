@@ -296,8 +296,8 @@ export class RefugeUdpatePage implements OnInit {
 
   private handleUpdateRefugeResponse(response: UpdateRefugeResponse) {
     match(response)
-      .with({ status: 'updated' }, (response) => {
-        this.handleCorrectCreateRefugeResponse(response.data);
+      .with({ status: 'updated' }, () => {
+        this.handleCorrectCreateRefugeResponse();
       })
       .with({ status: 'error' }, async (response) => {
         this.handleError(response.error);
@@ -305,9 +305,9 @@ export class RefugeUdpatePage implements OnInit {
       .exhaustive();
   }
 
-  private handleCorrectCreateRefugeResponse(refuge: Refuge) {
+  private handleCorrectCreateRefugeResponse() {
     this.loadingController.dismiss().then(() => {
-      this.router.navigate(['refuges', refuge.id]).then();
+      this.router.navigate(['refuges']).then();
     });
   }
 

@@ -193,7 +193,7 @@ export class RefugeService {
     refuge: UpdateRefuge,
   ): Observable<UpdateRefugeResponse> {
     const endpoint = this.updateRefugeEndpoint(refuge.id);
-    return this.http.post<Refuge>(endpoint, refuge).pipe(
+    return this.http.put<Refuge>(endpoint, refuge).pipe(
       map((response: Refuge) => updateRefugeResponseFromResponse(response)),
       catchError((err: HttpErrorResponse) =>
         of(updateRefugeResponseFromError(err)),
