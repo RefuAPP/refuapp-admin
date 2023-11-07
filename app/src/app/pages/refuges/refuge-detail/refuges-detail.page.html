@@ -11,33 +11,47 @@
 
     <ion-list lines="none">
       <ion-item>
-        <ion-label><strong>Regió </strong></ion-label>
+        <ion-label
+          ><strong>
+            {{ 'REFUGES.FORM.REGION.LABEL' | translate }}
+          </strong></ion-label
+        >
         <ion-label class="ion-text-end"> {{refuge.region}} </ion-label>
       </ion-item>
 
       <ion-item>
-        <ion-label><strong>Altitud</strong></ion-label>
-        <ion-label class="ion-text-end"> {{refuge.altitude}} metres</ion-label>
+        <ion-label
+          ><strong>
+            {{ 'REFUGES.FORM.ALTITUDE.LABEL' | translate }}
+          </strong></ion-label
+        >
+        <ion-label class="ion-text-end">
+          {{refuge.altitude}} {{'REFUGES.LIST.METRES' | translate }}</ion-label
+        >
       </ion-item>
       <ion-item>
-        <ion-label><strong>Capacitat</strong></ion-label>
+        <ion-label
+          ><strong>
+            {{ 'REFUGES.LIST.CAPACITY' | translate }}
+          </strong></ion-label
+        >
       </ion-item>
       <ion-item>
         <ion-label>
           <span class="tab"></span>
-          Hivern
+          {{ 'REFUGES.LIST.WINTER' | translate}}
         </ion-label>
         <ion-label class="ion-text-end">
-          {{refuge.capacity.winter}} persones
+          {{refuge.capacity.winter}} {{'REFUGES.LIST.PEOPLE' | translate}}
         </ion-label>
       </ion-item>
       <ion-item>
         <ion-label>
           <span class="tab"></span>
-          Estiu
+          {{ 'REFUGES.LIST.SUMMER' | translate}}
         </ion-label>
         <ion-label class="ion-text-end">
-          {{refuge.capacity.summer}} persones
+          {{refuge.capacity.summer}} {{'REFUGES.LIST.PEOPLE' | translate}}
         </ion-label>
       </ion-item>
     </ion-list>

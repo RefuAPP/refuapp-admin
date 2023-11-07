@@ -10,14 +10,11 @@
           alt="403 Forbidden"
           class="forbidden-img"
         ></ion-img>
-        <h1>Recurs no trobat</h1>
-        <p>
-          La pàgina que busques està prohibida per al teu rol. O bé ets un
-          trapella o és culpa nostra.
-        </p>
-        <ion-button expand="full" fill="solid" color="primary" routerLink="/"
-          >Ves a l'inici</ion-button
-        >
+        <h1>{{ 'FORBIDDEN_ERROR.HEADER' | translate }}</h1>
+        <p>{{ 'FORBIDDEN_ERROR.MESSAGE' | translate }}</p>
+        <ion-button expand="full" fill="solid" color="primary" routerLink="/">
+          {{ 'FORBIDDEN_ERROR.EXIT' | translate }}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

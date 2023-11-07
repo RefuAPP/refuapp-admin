@@ -1,0 +1,114 @@
+{
+  "HOME": {
+    "CLIENT_ERROR": {
+      "HEADER": "¡Alerta!",
+      "SUBHEADER": "¡Tu dispositivo está fallando!",
+      "MESSAGE": "¿Tiene tu dispositivo acceso a Internet? Tal vez sea nuestra culpa y nuestros servidores estén caídos",
+      "TRY_AGAIN": "Intenta de nuevo",
+      "EXIT": "Ir a inicio"
+    }
+  },
+  "FORBIDDEN_ERROR": {
+    "HEADER": "Recurso prohibido",
+    "MESSAGE": "La página que estás buscando está prohibida para tu rol. O estás siendo travieso o es nuestra culpa.",
+    "EXIT": "Ir a inicio"
+  },
+  "INTERNAL_ERROR": {
+    "HEADER": "Error interno",
+    "MESSAGE": "Lo siento, estamos experimentando problemas internos. Inténtalo de nuevo más tarde",
+    "EXIT": "Ir a inicio"
+  },
+  "NOT_FOUND_ERROR": {
+    "HEADER": "Recurso no encontrado",
+    "MESSAGE": "La página que estás buscando no existe. O estás haciendo algo mal o es nuestra culpa.",
+    "EXIT": "Ir a inicio"
+  },
+  "PROGRAMMING_ERROR": {
+    "HEADER": "Error de programación",
+    "MESSAGE": "Somos malos, nuestro código tiene un error de programación y no lo notamos. ¡Envíanos un correo electrónico!",
+    "EXIT": "Ir a inicio"
+  },
+  "UNAUTHORIZED_ERROR": {
+    "MESSAGE": "No estás autorizado para acceder a este recurso. ¿Estás conectado?"
+  },
+  "LOGIN": {
+    "HEADER": "Iniciar sesión",
+    "USERNAME": {
+      "LABEL": "Nombre de usuario",
+      "ERROR": "El nombre de usuario es obligatorio",
+      "ERROR_NOT_FOUND": "Este administrador no existe"
+    },
+    "PASSWORD": {
+      "LABEL": "Contraseña",
+      "ERROR": "La contraseña es obligatoria",
+      "ERROR_INCORRECT_PASSWORD": "La contraseña es incorrecta"
+    },
+    "SUBMIT": "Iniciar sesión",
+    "LOADING": "Iniciando sesión..."
+  },
+  "REFUGES": {
+    "CREATE": {
+      "HEADER": "Crear refugio",
+      "SUBMIT": "Crear refugio",
+      "LOADING": "Creando refugio..."
+    },
+    "UPDATE": {
+      "HEADER": "Actualizar refugio",
+      "SUBMIT": "Actualizar refugio",
+      "LOADING": "Actualizando refugio..."
+    },
+    "DELETE": {
+      "HEADER": "Eliminar refugio",
+      "SUBMIT": "Eliminar",
+      "LOADING": "Eliminando refugio...",
+      "CONFIRMATION": "¿Estás seguro de que quieres eliminar este refugio?",
+      "CANCEL": "Cancelar"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "Nombre",
+        "ERROR": "El nombre del refugio es obligatorio"
+      },
+      "REGION": {
+        "LABEL": "Región",
+        "ERROR": "La región del refugio es obligatoria"
+      },
+      "ALTITUDE": {
+        "LABEL": "Altitud",
+        "ERROR": "La altitud del refugio es obligatoria"
+      },
+      "LONGITUDE": {
+        "LABEL": "Longitud",
+        "ERROR": "La longitud del refugio es obligatoria"
+      },
+      "LATITUDE": {
+        "LABEL": "Latitud",
+        "ERROR": "La latitud del refugio es obligatoria"
+      },
+      "WINTER_CAPACITY": {
+        "LABEL": "Capacidad en invierno",
+        "ERROR": "La capacidad en invierno del refugio es obligatoria"
+      },
+      "SUMMER_CAPACITY": {
+        "LABEL": "Capacidad en verano",
+        "ERROR": "La capacidad en verano del refugio es obligatoria"
+      },
+      "IMAGE": {
+        "LOADING": "Subiendo imagen...",
+        "ERROR": "El formato del archivo debe ser .png o .jpeg"
+      },
+      "ERRORS": {
+        "CONFLICT": "Ya existe un refugio con este nombre"
+      }
+    },
+    "LIST": {
+      "HEADER": "Refugios",
+      "CAPACITY": "Capacidad",
+      "METRES": "metros",
+      "WINTER": "Invierno",
+      "SUMMER": "Verano",
+      "PEOPLE": "personas",
+      "SEARCH": "Buscar por nombre"
+    }
+  }
+}

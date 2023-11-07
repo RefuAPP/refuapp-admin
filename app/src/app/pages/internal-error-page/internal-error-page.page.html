@@ -10,17 +10,16 @@
           alt="500 - Internal Server Error"
           class="not-found-image"
         ></ion-img>
-        <h1>Error Intern</h1>
-        <p>
-          Disculpa, hi ha hagut un error intern. Torna a intentar-ho més tard.
-        </p>
+        <h1>{{ 'INTERNAL_ERROR.HEADER' | translate }}</h1>
+        <p>{{ 'INTERNAL_ERROR.MESSAGE' | translate }}</p>
         <ion-button
           expand="full"
           fill="solid"
           color="primary"
           routerLink="/refuges"
-          >Ves a la llista de refugis</ion-button
         >
+          {{ 'INTERNAL_ERROR.EXIT' | translate }}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

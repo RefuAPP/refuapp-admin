@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { DeviceLanguageService } from './services/language/device-language.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(
+    private translateService: TranslateService,
+    private deviceLanguageService: DeviceLanguageService,
+  ) {
+    this.deviceLanguageService.getLanguageCode().subscribe((languageCode) => {
+      this.translateService.use(languageCode);
+    });
+  }
 }

@@ -12,6 +12,7 @@ import {
   DeleteRefugeFromIdErrors,
   DeleteRefugeResponse,
 } from '../../../schemas/refuge/delete-refuge-schema';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-refuges-detail',
@@ -28,6 +29,7 @@ export class RefugesDetailPage implements OnInit {
     private refugeService: RefugeService,
     private alertController: AlertController,
     private loadingController: LoadingController,
+    private translateService: TranslateService,
   ) {
     const refugeId = this.getRefugeIdFromUrl();
     this.fetchRefuge(refugeId).then();
@@ -89,13 +91,12 @@ export class RefugesDetailPage implements OnInit {
 
   private async handleClientError() {
     const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'The client is failing',
-      message:
-        'Is your internet connection working? Maybe is our fault and our server is down.',
+      header: this.translateService.instant('ERRORS.CLIENT_ERROR.HEADER'),
+      subHeader: this.translateService.instant('ERRORS.CLIENT_ERROR.SUBHEADER'),
+      message: this.translateService.instant('ERRORS.CLIENT_ERROR.MESSAGE'),
       buttons: [
         {
-          text: 'OK',
+          text: this.translateService.instant('ERRORS.CLIENT_ERROR.EXIT'),
           handler: () => {
             this.alertController.dismiss().then();
             this.fetchRefuge(this.getRefugeIdFromUrl());
@@ -157,17 +158,17 @@ export class RefugesDetailPage implements OnInit {
 
   deleteRefuge() {
     const alert = this.alertController.create({
-      header: 'Esborrar refugi',
-      message: 'Estàs segur que vols esborrar el refugi?',
+      header: this.translateService.instant('REFUGES.DELETE.HEADER'),
+      message: this.translateService.instant('REFUGES.DELETE.CONFIRMATION'),
       buttons: [
         {
-          text: 'Cancel·lar',
+          text: this.translateService.instant('REFUGES.DELETE.CANCEL'),
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => this.alertController.dismiss().then(),
         },
         {
-          text: 'Esborrar',
+          text: this.translateService.instant('REFUGES.DELETE.SUBMIT'),
           handler: () => {
             this.alertController
               .dismiss()
@@ -248,7 +249,7 @@ export class RefugesDetailPage implements OnInit {
 
   private async startDeleteRefugeAnimation() {
     const loading = await this.loadingController.create({
-      message: 'Esborrant refugi...',
+      message: this.translateService.instant('REFUGES.DELETE.LOADING'),
       translucent: true,
     });
     return await loading.present();

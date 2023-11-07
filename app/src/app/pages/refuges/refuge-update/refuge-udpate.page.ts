@@ -23,6 +23,7 @@ import { NgForm } from '@angular/forms';
 import { UpdateRefugeResponse } from '../../../schemas/refuge/update/update-refuge-response';
 import { UpdateRefugeError } from '../../../schemas/refuge/update/update-refuge-error';
 import { ServerError } from '../../../schemas/refuge/create/create-refuge-error';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-refuge-update',
@@ -57,6 +58,7 @@ export class RefugeUdpatePage implements OnInit {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private imageService: ImageService,
+    private translateService: TranslateService,
   ) {
     const refugeId = this.getRefugeIdFromUrl();
     this.fetchRefuge(refugeId).then();
@@ -166,13 +168,12 @@ export class RefugeUdpatePage implements OnInit {
 
   private async handleClientError() {
     const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'The client is failing',
-      message:
-        'Is your internet connection working? Maybe is our fault and our server is down.',
+      header: this.translateService.instant('HOME.CLIENT_ERROR.HEADER'),
+      subHeader: this.translateService.instant('HOME.CLIENT_ERROR.SUBHEADER'),
+      message: this.translateService.instant('HOME.CLIENT_ERROR.MESSAGE'),
       buttons: [
         {
-          text: 'OK',
+          text: this.translateService.instant('HOME.CLIENT_ERROR.EXIT'),
           handler: () => {
             this.alertController.dismiss().then();
             this.fetchRefuge(this.getRefugeIdFromUrl());
@@ -192,7 +193,7 @@ export class RefugeUdpatePage implements OnInit {
 
   async postImageLoading(): Promise<void> {
     const loading = await this.loadingController.create({
-      message: 'Pujant imatge...',
+      message: this.translateService.instant('REFUGES.FORM.IMAGE.LOADING'),
       translucent: true,
     });
     return await loading.present();
@@ -255,7 +256,7 @@ export class RefugeUdpatePage implements OnInit {
   private async handleInvalidRequestError() {
     await this.showError(async () => {
       await this.showErrorMessage(
-        'El format del fitxer ha de ser .png o .jpeg',
+        this.translateService.instant('REFUGES.FORM.IMAGE.ERROR'),
       ).then();
     });
   }
@@ -272,7 +273,7 @@ export class RefugeUdpatePage implements OnInit {
 
   async updateRefugeLoading(): Promise<void> {
     const loading = await this.loadingController.create({
-      message: 'Actualitzant refugi...',
+      message: this.translateService.instant('REFUGES.UPDATE.LOADING'),
       translucent: true,
     });
     return await loading.present();
@@ -340,7 +341,7 @@ export class RefugeUdpatePage implements OnInit {
   private async handleUnauthorizedError() {
     await this.showError(async () => {
       await this.showErrorMessage(
-        'Trapella! La teva sessió no està iniciada!',
+        this.translateService.instant('UNAUTHORIZED_ERROR.MESSAGE'),
       ).then();
     });
   }
@@ -357,7 +358,7 @@ export class RefugeUdpatePage implements OnInit {
   private async handleConflictError() {
     await this.showError(async () => {
       await this.showErrorMessage(
-        'Ja existeix un refugi amb aquest nom',
+        this.translateService.instant('REFUGES.FORM.ERRORS.CONFLICT'),
       ).then();
     });
   }

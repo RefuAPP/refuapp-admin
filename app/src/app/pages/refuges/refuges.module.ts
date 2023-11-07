@@ -10,6 +10,7 @@ import { RefugesListPage } from './refuge-list/refuges-list.page';
 import { RefugesDetailPage } from './refuge-detail/refuges-detail.page';
 import { RefugeCreatePage } from './refuge-create/refuge-create.page';
 import { RefugeUdpatePage } from './refuge-update/refuge-udpate.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { RefugeUdpatePage } from './refuge-update/refuge-udpate.page';
     IonicModule,
     RefugesPageRoutingModule,
     NgOptimizedImage,
+    TranslateModule,
   ],
   declarations: [
     RefugesListPage,

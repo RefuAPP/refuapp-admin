@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Create refuge</ion-title>
+    <ion-title> {{ 'REFUGES.CREATE.HEADER' | translate}} </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +14,7 @@
   <div class="create-refuge-form">
     <form #createRefugeForm="ngForm" novalidate>
       <ion-input
-        label="Nom"
+        label="{{ 'REFUGES.FORM.NAME.LABEL' | translate}}"
         label-placement="stacked"
         fill="outline"
         clear-input="true"
@@ -22,13 +22,12 @@
         [(ngModel)]="form.name"
         name="name"
         type="text"
-        errorText="Introduïr el nom del refugi és obligatori"
+        errorText="{{ 'REFUGES.FORM.NAME.ERROR' | translate}}"
         required="true"
       >
       </ion-input>
-      <!--      TODO: Image-->
       <ion-input
-        label="Regió"
+        label=" {{ 'REFUGES.FORM.REGION.LABEL' | translate}}"
         label-placement="stacked"
         fill="outline"
         clearInput="true"
@@ -36,12 +35,12 @@
         [(ngModel)]="form.region"
         name="region"
         type="text"
-        errorText="Introduïr la regió del refugi és obligatori"
+        errorText=" {{ 'REFUGES.FORM.REGION.ERROR' | translate}}"
         required="true"
       >
       </ion-input>
       <ion-input
-        label="Altitud"
+        label=" {{ 'REFUGES.FORM.ALTITUDE.LABEL' | translate}}"
         label-placement="stacked"
         min="0"
         clear-input="true"
@@ -49,12 +48,12 @@
         [(ngModel)]="form.altitude"
         name="altitude"
         type="number"
-        errorText="Introduïr l'altitud del refugi és obligatori"
+        errorText=" {{ 'REFUGES.FORM.ALTITUDE.ERROR' | translate}}"
         required="true"
       >
       </ion-input>
       <ion-input
-        label="Longitud"
+        label=" {{ 'REFUGES.FORM.LONGITUDE.LABEL' | translate}}"
         label-placement="stacked"
         fill="outline"
         min="-180"
@@ -63,12 +62,12 @@
         [(ngModel)]="form.coordinates.longitude"
         name="longitude"
         type="number"
-        errorText="Introduïr la longitud del refugi és obligatori"
+        errorText=" {{ 'REFUGES.FORM.LONGITUDE.ERROR' | translate}}"
         required="true"
       >
       </ion-input>
       <ion-input
-        label="Latitud"
+        label=" {{ 'REFUGES.FORM.LATITUDE.LABEL' | translate}}"
         label-placement="stacked"
         fill="outline"
         [(ngModel)]="form.coordinates.latitude"
@@ -77,12 +76,12 @@
         max="90"
         clear-input="true"
         type="number"
-        errorText="Introduïr la latitud del refugi és obligatori"
+        errorText=" {{ 'REFUGES.FORM.LATITUDE.ERROR' | translate}}"
         required="true"
       >
       </ion-input>
       <ion-input
-        label="Capacitat d'hivern"
+        label=" {{ 'REFUGES.FORM.WINTER_CAPACITY.LABEL' | translate}}"
         label-placement="stacked"
         fill="outline"
         min="0"
@@ -90,12 +89,12 @@
         [(ngModel)]="form.capacity.winter"
         name="winterCapacity"
         type="number"
-        errorText="Introduïr la capacitat d'hivern del refugi és obligatori"
+        errorText=" {{ 'REFUGES.FORM.WINTER_CAPACITY.ERROR' | translate}}"
         required="true"
       >
       </ion-input>
       <ion-input
-        label="Capacitat d'estiu"
+        label=" {{ 'REFUGES.FORM.SUMMER_CAPACITY.LABEL' | translate}}"
         label-placement="stacked"
         fill="outline"
         [(ngModel)]="form.capacity.summer"
@@ -103,7 +102,7 @@
         clear-input="true"
         name="summerCapacity"
         type="number"
-        errorText="Introduïr la capacitat d'estiu del refugi és obligatori"
+        errorText=" {{ 'REFUGES.FORM.SUMMER_CAPACITY.ERROR' | translate}}"
         required="true"
       >
       </ion-input>
@@ -114,7 +113,7 @@
             (click)="onCreate(createRefugeForm)"
             type="submit"
             expand="block"
-            >Create refuge
+            >{{ 'REFUGES.CREATE.SUBMIT' | translate}}
           </ion-button>
         </ion-col>
       </ion-row>

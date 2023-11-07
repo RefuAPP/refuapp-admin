@@ -10,18 +10,16 @@
           alt="Programming Error"
           class="not-found-image"
         ></ion-img>
-        <h1>Error de programació</h1>
-        <p>
-          Ho sentim, però hi ha hagut un error de programació i no s'ha pogut
-          mostrar la pàgina que busques.
-        </p>
+        <h1>{{ 'PROGRAMMING_ERROR.HEADER' | translate}}</h1>
+        <p>{{ 'PROGRAMMING_ERROR.MESSAGE' | translate}}</p>
         <ion-button
           expand="full"
           fill="solid"
           color="primary"
           routerLink="/refuges"
-          >Ves a la llista de refugis</ion-button
         >
+          {{ 'PROGRAMMING_ERROR.EXIT' | translate}}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

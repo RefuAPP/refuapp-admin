@@ -1,0 +1,114 @@
+{
+  "HOME": {
+    "CLIENT_ERROR": {
+      "HEADER": "Alert!",
+      "SUBHEADER": "Your device is failing!",
+      "MESSAGE": "Does your device have internet access? Maybe is our fault and our servers are down",
+      "TRY_AGAIN": "Try again",
+      "EXIT": "Go home"
+    }
+  },
+  "FORBIDDEN_ERROR": {
+    "HEADER": "Forbidden resource",
+    "MESSAGE": "The page you're looking for is forbidden for your role. You're either being naughty or it's our fault.",
+    "EXIT": "Go home"
+  },
+  "INTERNAL_ERROR": {
+    "HEADER": "Internal error",
+    "MESSAGE": "Sorry, we are having internal issues. Try again later",
+    "EXIT": "Go home"
+  },
+  "NOT_FOUND_ERROR": {
+    "HEADER": "Resource not found",
+    "MESSAGE": "The page you are searching doesn't exist. You are being a bad guy or it's our fault.",
+    "EXIT": "Go home"
+  },
+  "PROGRAMMING_ERROR": {
+    "HEADER": "Programming error",
+    "MESSAGE": "We suck, our code had a programming error and we didn't notice it. Send us an email!",
+    "EXIT": "Go home"
+  },
+  "UNAUTHORIZED_ERROR": {
+    "MESSAGE": "You are not authorized to access this resource. Are you logged in?"
+  },
+  "LOGIN": {
+    "HEADER": "Login",
+    "USERNAME": {
+      "LABEL": "Username",
+      "ERROR": "Username is required",
+      "ERROR_NOT_FOUND": "This admin doesn't exist"
+    },
+    "PASSWORD": {
+      "LABEL": "Password",
+      "ERROR": "Password is required",
+      "ERROR_INCORRECT_PASSWORD": "Password is incorrect"
+    },
+    "SUBMIT": "Login",
+    "LOADING": "Signing in..."
+  },
+  "REFUGES": {
+    "CREATE": {
+      "HEADER": "Create refuge",
+      "SUBMIT": "Create refuge",
+      "LOADING": "Creating refuge..."
+    },
+    "UPDATE": {
+      "HEADER": "Update refuge",
+      "SUBMIT": "Update refuge",
+      "LOADING": "Updating refuge..."
+    },
+    "DELETE": {
+      "HEADER": "Delete refuge",
+      "SUBMIT": "Delete",
+      "LOADING": "Deleting refuge...",
+      "CONFIRMATION": "Are you sure you want to delete this refuge?",
+      "CANCEL": "Cancel"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "Name",
+        "ERROR": "Refuge's name is required"
+      },
+      "REGION": {
+        "LABEL": "Region",
+        "ERROR": "Refuge's region is required"
+      },
+      "ALTITUDE": {
+        "LABEL": "Altitude",
+        "ERROR": "Refuge's altitude is required"
+      },
+      "LONGITUDE": {
+        "LABEL": "Longitude",
+        "ERROR": "Refuge's longitude is required"
+      },
+      "LATITUDE": {
+        "LABEL": "Latitude",
+        "ERROR": "Refuge's latitude is required"
+      },
+      "WINTER_CAPACITY": {
+        "LABEL": "Winter capacity",
+        "ERROR": "Refuge's winter capacity is required"
+      },
+      "SUMMER_CAPACITY": {
+        "LABEL": "Summer capacity",
+        "ERROR": "Refuge's summer capacity is required"
+      },
+      "IMAGE": {
+        "LOADING": "Uploading image...",
+        "ERROR": "File format must be .png or .jpeg"
+      },
+      "ERRORS": {
+        "CONFLICT": "There is already a refuge with this name"
+      }
+    },
+    "LIST": {
+      "HEADER": "Refuges",
+      "CAPACITY": "Capacity",
+      "METRES": "metres",
+      "WINTER": "Winter",
+      "SUMMER": "Summer",
+      "PEOPLE": "people",
+      "SEARCH": "Search by name"
+    }
+  }
+}

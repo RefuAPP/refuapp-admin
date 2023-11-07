@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>Login</ion-title>
+    <ion-title> {{'LOGIN.HEADER' | translate }} </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,27 +19,27 @@
   <div class="login-form">
     <form #loginForm="ngForm" novalidate>
       <ion-input
-        label="Username"
+        label="{{'LOGIN.USERNAME.LABEL' | translate }}"
         labelPlacement="stacked"
         [clearInput]="true"
         placeholder="John Doe"
         fill="outline"
         [(ngModel)]="credentials.username"
         name="username"
-        errorText="Username is required"
+        errorText="{{'LOGIN.USERNAME.ERROR' | translate }}"
         required="true"
       >
       </ion-input>
 
       <ion-input
-        label="Password"
+        label="{{'LOGIN.PASSWORD.LABEL' | translate }}"
         labelPlacement="stacked"
         fill="outline"
         [(ngModel)]="credentials.password"
         name="password"
         type="password"
-        errorText="Password is required"
-        required="Password is required"
+        errorText="{{'LOGIN.PASSWORD.ERROR' | translate }}"
+        required="true"
       >
       </ion-input>
       <ion-note color="danger" *ngIf="hasError"> {{errorMessage}} </ion-note>
@@ -47,7 +47,7 @@
       <ion-row>
         <!--        <ion-col>-->
         <ion-button (click)="onLogin(loginForm)" type="submit" expand="block"
-          >Login
+          >{{'LOGIN.SUBMIT' | translate }}
         </ion-button>
         <!--        </ion-col>-->
       </ion-row>

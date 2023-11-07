@@ -1,0 +1,114 @@
+{
+  "HOME": {
+    "CLIENT_ERROR": {
+      "HEADER": "Alerta!",
+      "SUBHEADER": "El teu dispositiu està fallant!",
+      "MESSAGE": "Té accés a Internet el teu dispositiu? Potser és culpa nostra i els nostres servidors estan caiguts",
+      "TRY_AGAIN": "Torna-ho a provar",
+      "EXIT": "Anar a casa"
+    }
+  },
+  "FORBIDDEN_ERROR": {
+    "HEADER": "Recurs prohibit",
+    "MESSAGE": "La pàgina que estàs buscant està prohibit per al teu rol. O estàs essent un ximplet o és culpa nostra.",
+    "EXIT": "Anar a casa"
+  },
+  "INTERNAL_ERROR": {
+    "HEADER": "Error intern",
+    "MESSAGE": "Ho sento, estem experimentant problemes interns. Torna-ho a provar més tard",
+    "EXIT": "Anar a casa"
+  },
+  "NOT_FOUND_ERROR": {
+    "HEADER": "Recurs no trobat",
+    "MESSAGE": "La pàgina que estàs buscant no existeix. O estàs fent alguna cosa dolenta o és culpa nostra.",
+    "EXIT": "Anar a casa"
+  },
+  "PROGRAMMING_ERROR": {
+    "HEADER": "Error de programació",
+    "MESSAGE": "Som uns inútils, el nostre codi té un error de programació i no ens n'hem adonat. Envia'ns un correu electrònic!",
+    "EXIT": "Anar a casa"
+  },
+  "UNAUTHORIZED_ERROR": {
+    "MESSAGE": "No estàs autoritzat a accedir a aquest recurs. Estàs connectat?"
+  },
+  "LOGIN": {
+    "HEADER": "Iniciar sessió",
+    "USERNAME": {
+      "LABEL": "Nom d'usuari",
+      "ERROR": "El nom d'usuari és obligatori",
+      "ERROR_NOT_FOUND": "Aquest administrador no existeix"
+    },
+    "PASSWORD": {
+      "LABEL": "Contrasenya",
+      "ERROR": "La contrasenya és obligatòria",
+      "ERROR_INCORRECT_PASSWORD": "La contrasenya és incorrecta"
+    },
+    "SUBMIT": "Iniciar sessió",
+    "LOADING": "Iniciant sessió..."
+  },
+  "REFUGES": {
+    "CREATE": {
+      "HEADER": "Crear refugi",
+      "SUBMIT": "Crear refugi",
+      "LOADING": "Creant refugi..."
+    },
+    "UPDATE": {
+      "HEADER": "Actualitzar refugi",
+      "SUBMIT": "Actualitzar refugi",
+      "LOADING": "Actualitzant refugi..."
+    },
+    "DELETE": {
+      "HEADER": "Eliminar refugi",
+      "SUBMIT": "Eliminar",
+      "LOADING": "Eliminant refugi...",
+      "CONFIRMATION": "Estàs segur que vols eliminar aquest refugi?",
+      "CANCEL": "Cancel·lar"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "Nom",
+        "ERROR": "El nom del refugi és obligatori"
+      },
+      "REGION": {
+        "LABEL": "Regió",
+        "ERROR": "La regió del refugi és obligatòria"
+      },
+      "ALTITUDE": {
+        "LABEL": "Altitud",
+        "ERROR": "L'altitud del refugi és obligatòria"
+      },
+      "LONGITUDE": {
+        "LABEL": "Longitud",
+        "ERROR": "La longitud del refugi és obligatòria"
+      },
+      "LATITUDE": {
+        "LABEL": "Latitud",
+        "ERROR": "La latitud del refugi és obligatòria"
+      },
+      "WINTER_CAPACITY": {
+        "LABEL": "Capacitat a l'hivern",
+        "ERROR": "La capacitat a l'hivern del refugi és obligatòria"
+      },
+      "SUMMER_CAPACITY": {
+        "LABEL": "Capacitat a l'estiu",
+        "ERROR": "La capacitat a l'estiu del refugi és obligatòria"
+      },
+      "IMAGE": {
+        "LOADING": "Pujant imatge...",
+        "ERROR": "El format del fitxer ha de ser .png o .jpeg"
+      },
+      "ERRORS": {
+        "CONFLICT": "Ja hi ha un refugi amb aquest nom"
+      }
+    },
+    "LIST": {
+      "HEADER": "Refugis",
+      "CAPACITY": "Capacitat",
+      "METRES": "metres",
+      "WINTER": "Hivern",
+      "SUMMER": "Estiu",
+      "PEOPLE": "persones",
+      "SEARCH": "Cercar per nom"
+    }
+  }
+}

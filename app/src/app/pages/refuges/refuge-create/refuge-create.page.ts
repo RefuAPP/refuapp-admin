@@ -21,6 +21,7 @@ import {
   PostImageErrors,
   PostImageResponse,
 } from '../../../schemas/image/post-image-schema';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-refuge-create',
@@ -51,13 +52,14 @@ export class RefugeCreatePage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private imageService: ImageService,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {}
 
   async createRefugeLoading(): Promise<void> {
     const loading = await this.loadingController.create({
-      message: 'Creant refugi...',
+      message: this.translateService.instant('REFUGES.CREATE.LOADING'),
       translucent: true,
     });
     return await loading.present();
@@ -132,7 +134,7 @@ export class RefugeCreatePage implements OnInit {
   private async handleUnauthorizedError() {
     await this.showError(async () => {
       await this.showErrorMessage(
-        'Trapella! La teva sessió no està iniciada!',
+        this.translateService.instant('UNAUTHORIZED_ERROR.MESSAGE'),
       ).then();
     });
   }
@@ -160,7 +162,7 @@ export class RefugeCreatePage implements OnInit {
   private async handleConflictError() {
     await this.showError(async () => {
       await this.showErrorMessage(
-        'Ja existeix un refugi amb aquest nom',
+        this.translateService.instant('REFUGES.FORM.ERRORS.CONFLICT'),
       ).then();
     });
   }
@@ -187,16 +189,15 @@ export class RefugeCreatePage implements OnInit {
 
   private async handleClientError() {
     const alert = await this.alertController.create({
-      header: 'Alerta',
-      subHeader: 'El teu dispositiu està fallant',
-      message:
-        'Funciona la connexió a Internet? Potser és culpa nostra i el nostre servidor està caigut.',
+      header: this.translateService.instant('HOME.CLIENT_ERROR.HEADER'),
+      subHeader: this.translateService.instant('HOME.CLIENT_ERROR.SUBHEADER'),
+      message: this.translateService.instant('HOME.CLIENT_ERROR.MESSAGE'),
       buttons: [
         {
-          text: "Ves a l'inici",
+          text: this.translateService.instant('HOME.CLIENT_ERROR.EXIT'),
           handler: () => {
             this.alertController.dismiss().then();
-            this.router.navigate(['/home']).then();
+            this.router.navigate(['/refuges']).then();
           },
         },
       ],
@@ -216,7 +217,7 @@ export class RefugeCreatePage implements OnInit {
 
   async postImageLoading(): Promise<void> {
     const loading = await this.loadingController.create({
-      message: 'Pujant imatge...',
+      message: this.translateService.instant('REFUGES.FORM.IMAGE.LOADING'),
       translucent: true,
     });
     return await loading.present();
@@ -279,7 +280,7 @@ export class RefugeCreatePage implements OnInit {
   private async handleInvalidRequestError() {
     await this.showError(async () => {
       await this.showErrorMessage(
-        'El format del fitxer ha de ser .png o .jpeg',
+        this.translateService.instant('REFUGES.FORM.IMAGE.ERROR'),
       ).then();
     });
   }

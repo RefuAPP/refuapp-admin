@@ -10,14 +10,11 @@
           alt="404 Not Found"
           class="not-found-image"
         ></ion-img>
-        <h1>Recurs no trobat</h1>
-        <p>
-          La pàgina que busques no existeix. O bé estàs fent malifetes o és
-          culpa nostra.
-        </p>
-        <ion-button expand="full" fill="solid" color="primary" routerLink="/"
-          >Ves a l'inici</ion-button
-        >
+        <h1>{{'NOT_FOUND_ERROR.HEADER' | translate}}</h1>
+        <p>{{'NOT_FOUND_ERROR.MESSAGE' | translate}}</p>
+        <ion-button expand="full" fill="solid" color="primary" routerLink="/">
+          {{'NOT_FOUND_ERROR.EXIT' | translate}}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

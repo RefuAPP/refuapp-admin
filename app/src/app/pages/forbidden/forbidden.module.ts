@@ -7,9 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ForbiddenPageRoutingModule } from './forbidden-routing.module';
 
 import { ForbiddenPage } from './forbidden.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, ForbiddenPageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ForbiddenPageRoutingModule,
+    TranslateModule,
+  ],
   declarations: [ForbiddenPage],
 })
 export class ForbiddenPageModule {}

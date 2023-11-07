@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProgrammingErrorPageRoutingModule } from './programming-error-routing.module';
 
 import { ProgrammingErrorPage } from './programming-error.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ProgrammingErrorPage } from './programming-error.page';
     FormsModule,
     IonicModule,
     ProgrammingErrorPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [ProgrammingErrorPage],
 })

@@ -12,6 +12,7 @@ import {
   AuthenticationErrors,
   ServerErrors,
 } from '../../schemas/auth/errors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private alertController: AlertController,
     private loadingController: LoadingController,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {}
@@ -70,13 +72,12 @@ export class LoginPage implements OnInit {
 
   private async handleClientError() {
     const alert = await this.alertController.create({
-      header: 'Alerta',
-      subHeader: 'El teu dispositiu està fallant',
-      message:
-        'Funciona la connexió a Internet? Potser és culpa nostra i el nostre servidor està caigut.',
+      header: this.translateService.instant('HOME.CLIENT_ERROR.HEADER'),
+      subHeader: this.translateService.instant('HOME.CLIENT_ERROR.SUBHEADER'),
+      message: this.translateService.instant('HOME.CLIENT_ERROR.MESSAGE'),
       buttons: [
         {
-          text: 'Tornar-ho a provar',
+          text: this.translateService.instant('HOME.CLIENT_ERROR.TRY_AGAIN'),
           handler: () => {
             this.router.navigate(['/login']).then();
           },
@@ -98,11 +99,15 @@ export class LoginPage implements OnInit {
       })
       .with(AdminErrors.INCORRECT_PASSWORD, () => {
         this.showErrorAndFinishLoadingAnimation(
-          'Contrasenya incorrecta',
+          this.translateService.instant(
+            'LOGIN.PASSWORD.ERROR_INCORRECT_PASSWORD',
+          ),
         ).then();
       })
       .with(AdminErrors.USER_NOT_FOUND, () => {
-        this.showErrorAndFinishLoadingAnimation("L'usuari no existeix").then();
+        this.showErrorAndFinishLoadingAnimation(
+          this.translateService.instant('LOGIN.USERNAME.ERROR_NOT_FOUND'),
+        ).then();
       })
       .exhaustive();
   }
@@ -125,7 +130,7 @@ export class LoginPage implements OnInit {
 
   private async startLoadingAnimation() {
     const loading = await this.loadingController.create({
-      message: 'Iniciant sessió...',
+      message: this.translateService.instant('LOGIN.LOADING'),
       translucent: true,
     });
     return await loading.present();

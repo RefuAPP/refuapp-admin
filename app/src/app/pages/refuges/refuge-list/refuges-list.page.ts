@@ -19,6 +19,7 @@ import {
   Observable,
   Subject,
 } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-refuges',
@@ -35,6 +36,7 @@ export class RefugesListPage implements OnInit {
     private router: Router,
     private refugeService: RefugeService,
     private alertController: AlertController,
+    private translateService: TranslateService,
   ) {
     this.errors = this.refugeService.getRefuges().pipe(
       filter(
@@ -87,13 +89,12 @@ export class RefugesListPage implements OnInit {
 
   private async handleClientError() {
     const alert = await this.alertController.create({
-      header: 'Alert',
-      subHeader: 'The client is failing',
-      message:
-        'Is your internet connection working? Maybe is our fault and our server is down.',
+      header: this.translateService.instant('ERRORS.CLIENT_ERROR.HEADER'),
+      subHeader: this.translateService.instant('ERRORS.CLIENT_ERROR.SUBHEADER'),
+      message: this.translateService.instant('ERRORS.CLIENT_ERROR.MESSAGE'),
       buttons: [
         {
-          text: 'OK',
+          text: this.translateService.instant('ERRORS.CLIENT_ERROR.EXIT'),
           handler: () => {
             this.alertController.dismiss().then();
           },

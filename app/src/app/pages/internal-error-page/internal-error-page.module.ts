@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InternalErrorPagePageRoutingModule } from './internal-error-page-routing.module';
 
 import { InternalErrorPagePage } from './internal-error-page.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { InternalErrorPagePage } from './internal-error-page.page';
     FormsModule,
     IonicModule,
     InternalErrorPagePageRoutingModule,
+    TranslateModule,
   ],
   declarations: [InternalErrorPagePage],
 })

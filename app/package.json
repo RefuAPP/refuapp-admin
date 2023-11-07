@@ -38,7 +38,10 @@
     "zone.js": "~0.13.0",
     "@capacitor/preferences": "^5.0.6",
     "@types/uuid": "^9.0.5",
-    "@capacitor/camera": "^5.0.7"
+    "@capacitor/camera": "^5.0.7",
+    "@capacitor/device": "^5.0.6",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.0",

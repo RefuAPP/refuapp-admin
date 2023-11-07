@@ -1,11 +1,11 @@
 <ion-header [translucent]="true" mode="md">
   <ion-toolbar>
-    <ion-title>Refuges</ion-title>
+    <ion-title> {{'REFUGES.LIST.HEADER' | translate}} </ion-title>
     <ion-row>
       <ion-col size="12">
         <ion-searchbar
           show-clear-button="always"
-          placeholder="Buscar per nom"
+          placeholder="{{'REFUGES.LIST.SEARCH' | translate}}"
           [(ngModel)]="searchTerm"
           (ionInput)="searchByName()"
           [debounce]="250"
@@ -54,18 +54,28 @@
               >
                 <div class="refuge-name">{{refuge.name}}</div>
                 <p>
-                  Regió: <br />
+                  {{'REFUGES.FORM.REGION.LABEL' | translate}}<br />
                   <strong> {{refuge.region}} </strong>
                 </p>
                 <p>
-                  Altitud: <br />
-                  <strong> {{refuge.altitude}}m </strong>
+                  {{'REFUGES.LIST.CAPACITY' | translate}}<br />
+                  <strong>
+                    {{refuge.altitude}} {{'REFUGES.LIST.METRES' | translate}}
+                  </strong>
                 </p>
                 <p>
-                  Capacitat:
+                  {{'REFUGES.FORM.ALTITUDE.LABEL' | translate}}
                   <br />
-                  <strong>- Hivern: {{refuge.capacity.winter}} </strong> <br />
-                  <strong>- Estiu: {{refuge.capacity.summer}} </strong>
+                  <strong
+                    >- {{'REFUGES.LIST.WINTER' | translate}}:
+                    {{refuge.capacity.winter}}
+                  </strong>
+                  <br />
+                  <strong
+                    >- {{'REFUGES.LIST.SUMMER' | translate}}:
+                    {{refuge.capacity.summer}}
+                  </strong>
+                  <br />
                 </p>
               </ion-col>
             </ion-row>
