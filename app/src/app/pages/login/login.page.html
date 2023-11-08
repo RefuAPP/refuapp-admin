@@ -21,7 +21,6 @@
       <ion-input
         label="{{'LOGIN.USERNAME.LABEL' | translate }}"
         labelPlacement="stacked"
-        [clearInput]="true"
         placeholder="John Doe"
         fill="outline"
         [(ngModel)]="credentials.username"
@@ -40,6 +39,7 @@
         type="password"
         errorText="{{'LOGIN.PASSWORD.ERROR' | translate }}"
         required="true"
+        (keyup.enter)="onLogin(loginForm)"
       >
       </ion-input>
       <ion-note color="danger" *ngIf="hasError"> {{errorMessage}} </ion-note>
