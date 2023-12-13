@@ -1,0 +1,114 @@
+{
+  "HOME": {
+    "CLIENT_ERROR": {
+      "HEADER": "Alerte !",
+      "SUBHEADER": "Votre appareil rencontre des problèmes !",
+      "MESSAGE": "Votre appareil a-t-il accès à Internet ? Peut-être que c'est de notre faute et que nos serveurs sont hors service.",
+      "TRY_AGAIN": "Réessayez",
+      "EXIT": "Retour à l'accueil"
+    }
+  },
+  "FORBIDDEN_ERROR": {
+    "HEADER": "Ressource interdite",
+    "MESSAGE": "La page que vous cherchez est interdite pour votre rôle. Soit vous êtes désobéissant, soit c'est de notre faute.",
+    "EXIT": "Retour à l'accueil"
+  },
+  "INTERNAL_ERROR": {
+    "HEADER": "Erreur interne",
+    "MESSAGE": "Désolé, nous rencontrons des problèmes internes. Réessayez plus tard.",
+    "EXIT": "Retour à l'accueil"
+  },
+  "NOT_FOUND_ERROR": {
+    "HEADER": "Ressource non trouvée",
+    "MESSAGE": "La page que vous cherchez n'existe pas. Soit vous êtes un vilain, soit c'est de notre faute.",
+    "EXIT": "Retour à l'accueil"
+  },
+  "PROGRAMMING_ERROR": {
+    "HEADER": "Erreur de programmation",
+    "MESSAGE": "Nous sommes nuls, notre code comporte une erreur de programmation et nous ne l'avons pas remarqué. Envoyez-nous un e-mail !",
+    "EXIT": "Retour à l'accueil"
+  },
+  "UNAUTHORIZED_ERROR": {
+    "MESSAGE": "Vous n'êtes pas autorisé à accéder à cette ressource. Êtes-vous connecté ?"
+  },
+  "LOGIN": {
+    "HEADER": "Connexion",
+    "USERNAME": {
+      "LABEL": "Nom d'utilisateur",
+      "ERROR": "Le nom d'utilisateur est requis",
+      "ERROR_NOT_FOUND": "Cet administrateur n'existe pas"
+    },
+    "PASSWORD": {
+      "LABEL": "Mot de passe",
+      "ERROR": "Le mot de passe est requis",
+      "ERROR_INCORRECT_PASSWORD": "Le mot de passe est incorrect"
+    },
+    "SUBMIT": "Connexion",
+    "LOADING": "Connexion en cours..."
+  },
+  "REFUGES": {
+    "CREATE": {
+      "HEADER": "Créer un refuge",
+      "SUBMIT": "Créer un refuge",
+      "LOADING": "Création du refuge en cours..."
+    },
+    "UPDATE": {
+      "HEADER": "Mettre à jour un refuge",
+      "SUBMIT": "Mettre à jour un refuge",
+      "LOADING": "Mise à jour du refuge en cours..."
+    },
+    "DELETE": {
+      "HEADER": "Supprimer un refuge",
+      "SUBMIT": "Supprimer",
+      "LOADING": "Suppression du refuge en cours...",
+      "CONFIRMATION": "Êtes-vous sûr de vouloir supprimer ce refuge ?",
+      "CANCEL": "Annuler"
+    },
+    "FORM": {
+      "NAME": {
+        "LABEL": "Nom",
+        "ERROR": "Le nom du refuge est requis"
+      },
+      "REGION": {
+        "LABEL": "Région",
+        "ERROR": "La région du refuge est requise"
+      },
+      "ALTITUDE": {
+        "LABEL": "Altitude",
+        "ERROR": "L'altitude du refuge est requise"
+      },
+      "LONGITUDE": {
+        "LABEL": "Longitude",
+        "ERROR": "La longitude du refuge est requise"
+      },
+      "LATITUDE": {
+        "LABEL": "Latitude",
+        "ERROR": "La latitude du refuge est requise"
+      },
+      "WINTER_CAPACITY": {
+        "LABEL": "Capacité hivernale",
+        "ERROR": "La capacité hivernale du refuge est requise"
+      },
+      "SUMMER_CAPACITY": {
+        "LABEL": "Capacité estivale",
+        "ERROR": "La capacité estivale du refuge est requise"
+      },
+      "IMAGE": {
+        "LOADING": "Téléchargement de l'image en cours...",
+        "ERROR": "Le format du fichier doit être .png ou .jpeg"
+      },
+      "ERRORS": {
+        "CONFLICT": "Il existe déjà un refuge avec ce nom"
+      }
+    },
+    "LIST": {
+      "HEADER": "Refuges",
+      "CAPACITY": "Capacité",
+      "METRES": "mètres",
+      "WINTER": "Hiver",
+      "SUMMER": "Été",
+      "PEOPLE": "personnes",
+      "SEARCH": "Rechercher par nom"
+    }
+  }
+}
